@@ -31,30 +31,30 @@ type_name_map::type_name_map() { addBuiltInTypeNames(); }
 type_name_map::tTypeMap& type_name_map::map()
 {
   static type_name_map tn;
-  return tn.mTypeMap;
+  return tn.type_map_;
 }
 
 void type_name_map::addBuiltInTypeNames()
 {
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(bool)), "B8"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(char)), "C8"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(bool)), "B8"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(char)), "C8"));
   //  mTypeMap.insert(std::make_pair(std::type_index(typeid(wchar_t           )), "WC16")); //not supported
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(char16_t)), "C16"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(char32_t)), "C32"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(float)), "F32"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(double)), "F64"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(char16_t)), "C16"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(char32_t)), "C32"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(float)), "F32"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(double)), "F64"));
   //  mTypeMap.insert(std::make_pair(std::type_index(typeid(long double       )), "F96" )); //not supported yet
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(std::int8_t)), "I8"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(std::int16_t)), "I16"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(std::int32_t)), "I32"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(std::int64_t)), "I64"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(long long)), "L64"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(std::uint8_t)), "UI8"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(std::uint16_t)), "UI16"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(std::uint32_t)), "UI32"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(std::uint64_t)), "UI64"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(unsigned long long)), "UL64"));
-  mTypeMap.insert(std::make_pair(std::type_index(typeid(std::string)), "STR"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(std::int8_t)), "I8"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(std::int16_t)), "I16"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(std::int32_t)), "I32"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(std::int64_t)), "I64"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(long long)), "L64"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(std::uint8_t)), "UI8"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(std::uint16_t)), "UI16"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(std::uint32_t)), "UI32"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(std::uint64_t)), "UI64"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(unsigned long long)), "UL64"));
+  type_map_.insert(std::make_pair(std::type_index(typeid(std::string)), "STR"));
   //  mTypeMap.insert(std::make_pair(std::type_index(typeid(std::wstring      )), "WSTR")); //not supported
 
   /* TODO: check if this is an issue: The width of wchar_t is compiler-specific and can be as small as 8 bits.

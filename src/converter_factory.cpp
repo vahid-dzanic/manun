@@ -38,17 +38,17 @@ void converter_factory::removeAll()
 
 converter_factory::~converter_factory()
 {
-  for (auto ptr : mObjCreatorFuncMap)
+  for (auto ptr : obj_creator_func_map_)
   {
     delete ptr.second;
   }
-  mObjCreatorFuncMap.clear();
+  obj_creator_func_map_.clear();
 }
 
 converter_factory::tCreatorMap& converter_factory::map()
 {
   static converter_factory oF;
-  return oF.mObjCreatorFuncMap;
+  return oF.obj_creator_func_map_;
 }
 
 } // namespace manun

@@ -68,8 +68,8 @@ public:
   }
 
 private:
-  convert_proxy(); // not impl.
-  convert_proxy(const convert_proxy&); // not impl.
-  void operator=(const convert_proxy&); // not impl.
+  convert_proxy() = delete;
+  convert_proxy(const convert_proxy&) = delete;
+  void operator=(const convert_proxy&) = delete;
 };
 } // namespace manun

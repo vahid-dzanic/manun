@@ -110,9 +110,9 @@ public:
                                        std::is_same<TYP, unsigned char>::value)>::type* = nullptr>
   static TYP string2arithmetic(const std::string& txt)
   {
-    std::uintmax_t retVal = 0;
-    std::istringstream(txt) >> std::hex >> retVal;
-    return static_cast<TYP>(retVal);
+    std::uintmax_t ret_val = 0;
+    std::istringstream(txt) >> std::hex >> ret_val;
+    return static_cast<TYP>(ret_val);
   }
   template<typename TYP,
            typename std::enable_if<std::is_integral<TYP>::value &&
@@ -120,30 +120,30 @@ public:
                                     std::is_same<TYP, unsigned char>::value)>::type* = nullptr>
   static TYP string2arithmetic(const std::string& txt)
   {
-    TYP retVal;
-    std::istringstream(txt) >> std::hex >> retVal;
-    return static_cast<TYP>(retVal);
+    TYP ret_val;
+    std::istringstream(txt) >> std::hex >> ret_val;
+    return static_cast<TYP>(ret_val);
   }
 //  template<typename TYP, typename std::enable_if<std::is_integral<TYP>::value && std::is_signed<TYP>::value && not (
 //                                                 std::is_same<TYP, char>::value ||
 //                                                 std::is_same<TYP, signed char>::value)>::type* = nullptr>
 //  static TYP string2arithmetic(const std::string& txt)
 //  {
-////    std::intmax_t retVal = 0;
-////    std::istringstream(txt) >> std::hex >> retVal;
-////    return static_cast<TYP>(retVal);
-//    std::uintmax_t retVal = 0;
-//    std::istringstream(txt) >> std::hex >> retVal;
-//    return static_cast<TYP>(retVal);
+////    std::intmax_t ret_val = 0;
+////    std::istringstream(txt) >> std::hex >> ret_val;
+////    return static_cast<TYP>(ret_val);
+//    std::uintmax_t ret_val = 0;
+//    std::istringstream(txt) >> std::hex >> ret_val;
+//    return static_cast<TYP>(ret_val);
 //  }
 //  template<typename TYP, typename std::enable_if<std::is_integral<TYP>::value && std::is_signed<TYP>::value && (
 //                                                 std::is_same<TYP, char>::value ||
 //                                                 std::is_same<TYP, signed char>::value)>::type* = nullptr>
 //  static TYP string2arithmetic(const std::string& txt)
 //  {
-//    TYP retVal;
-//    std::istringstream(txt) >> std::hex >> retVal;
-//    return static_cast<TYP>(retVal);
+//    TYP ret_val;
+//    std::istringstream(txt) >> std::hex >> ret_val;
+//    return static_cast<TYP>(ret_val);
 //  }
 #endif //__VDC_CONVERT_ARITHMETIC_IN_DEC
   template<typename TYP, typename std::enable_if<std::is_floating_point<TYP>::value>::type* = nullptr>
@@ -210,81 +210,81 @@ private:
   template<typename TYP, typename std::enable_if<stdex::traits::is_array<TYP>::value>::type* = nullptr>
   static TYP string2valueInternal(const std::string& txt)
   {
-    TYP retVal;
+    TYP ret_val;
     auto sub = txt.substr(1, txt.size() - 2);
     std::vector<std::string> vecTxt = extractGroups(sub);
     for (std::size_t i = 0; i < vecTxt.size(); ++i)
     {
-      retVal[i] = string2valueInternal<typename TYP::value_type>(vecTxt[i]);
+      ret_val[i] = string2valueInternal<typename TYP::value_type>(vecTxt[i]);
     }
-    return retVal;
+    return ret_val;
   }
   template<typename TYP,
            typename std::enable_if<stdex::traits::is_vector<TYP>::value || stdex::traits::is_deque<TYP>::value>::type* =
              nullptr>
   static TYP string2valueInternal(const std::string& txt)
   {
-    TYP retVal;
+    TYP ret_val;
     auto sub = txt.substr(1, txt.size() - 2);
     std::vector<std::string> vecTxt = extractGroups(sub);
-    retVal.resize(vecTxt.size());
+    ret_val.resize(vecTxt.size());
     for (std::size_t i = 0; i < vecTxt.size(); ++i)
     {
-      retVal[i] = string2valueInternal<typename TYP::value_type>(vecTxt[i]);
+      ret_val[i] = string2valueInternal<typename TYP::value_type>(vecTxt[i]);
     }
-    return retVal;
+    return ret_val;
   }
   template<typename TYP,
            typename std::enable_if<stdex::traits::is_list<TYP>::value ||
                                    stdex::traits::is_forward_list<TYP>::value>::type* = nullptr>
   static TYP string2valueInternal(const std::string& txt)
   {
-    TYP retVal;
+    TYP ret_val;
     auto sub = txt.substr(1, txt.size() - 2);
     std::vector<std::string> vecTxt = extractGroups(sub);
     for (std::vector<std::string>::const_reverse_iterator i = vecTxt.crbegin(); i != vecTxt.crend(); ++i)
     {
-      retVal.push_front(string2valueInternal<typename TYP::value_type>(*i));
+      ret_val.push_front(string2valueInternal<typename TYP::value_type>(*i));
     }
-    return retVal;
+    return ret_val;
   }
   template<typename TYP,
            typename std::enable_if<stdex::traits::is_stack<TYP>::value ||
                                    stdex::traits::is_priority_queue<TYP>::value>::type* = nullptr>
   static TYP string2valueInternal(const std::string& txt)
   {
-    TYP retVal;
+    TYP ret_val;
     auto sub = txt.substr(1, txt.size() - 2);
     std::vector<std::string> vecTxt = extractGroups(sub);
     for (std::vector<std::string>::const_reverse_iterator i = vecTxt.crbegin(); i != vecTxt.crend(); ++i)
     {
-      retVal.push(string2valueInternal<typename TYP::value_type>(*i));
+      ret_val.push(string2valueInternal<typename TYP::value_type>(*i));
     }
-    return retVal;
+    return ret_val;
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_queue<TYP>::value>::type* = nullptr>
   static TYP string2valueInternal(const std::string& txt)
   {
-    TYP retVal;
+    TYP ret_val;
     auto sub = txt.substr(1, txt.size() - 2);
     std::vector<std::string> vecTxt = extractGroups(sub);
     for (std::vector<std::string>::const_iterator i = vecTxt.cbegin(); i != vecTxt.cend(); ++i)
     {
-      retVal.push(string2valueInternal<typename TYP::value_type>(*i));
+      ret_val.push(string2valueInternal<typename TYP::value_type>(*i));
     }
-    return retVal;
+    return ret_val;
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_associative_container<TYP>::value>::type* = nullptr>
   static TYP string2valueInternal(const std::string& txt)
   {
-    TYP retVal;
+    TYP ret_val;
     auto sub = txt.substr(1, txt.size() - 2);
     std::vector<std::string> vecTxt = extractGroups(sub);
     for (std::size_t i = 0; i < vecTxt.size(); ++i)
     {
-      retVal.insert(string2valueInternal<typename TYP::value_type>(vecTxt[i]));
+      ret_val.insert(string2valueInternal<typename TYP::value_type>(vecTxt[i]));
     }
-    return retVal;
+    return ret_val;
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_pair<TYP>::value>::type* = nullptr>
   static TYP string2valueInternal(const std::string& txt)
@@ -332,14 +332,14 @@ private:
       // assert
     }
     //    return std::string(SGP + STX + value + ETX + EGP);
-    std::string retVal;
-    retVal.reserve(value.size() + 4);
-    retVal.push_back(SGP);
-    retVal.push_back(STX);
-    retVal.append(value);
-    retVal.push_back(ETX);
-    retVal.push_back(EGP);
-    return retVal;
+    std::string ret_val;
+    ret_val.reserve(value.size() + 4);
+    ret_val.push_back(SGP);
+    ret_val.push_back(STX);
+    ret_val.append(value);
+    ret_val.push_back(ETX);
+    ret_val.push_back(EGP);
+    return ret_val;
   }
   template<typename TYP>
   static std::string value2stringInternal(const TYP& value,
@@ -352,14 +352,14 @@ private:
     const TYP& container,
     typename std::enable_if<stdex::traits::is_sequential_container<TYP>::value>::type* = nullptr)
   {
-    std::string retVal;
-    retVal.push_back(SGP);
+    std::string ret_val;
+    ret_val.push_back(SGP);
     for (auto value : container)
     {
-      retVal.append(value2stringInternal(value));
+      ret_val.append(value2stringInternal(value));
     }
-    retVal.push_back(EGP);
-    return retVal;
+    ret_val.push_back(EGP);
+    return ret_val;
   }
   template<typename TYP>
   static std::string value2stringInternal(
@@ -367,59 +367,59 @@ private:
     typename std::enable_if<stdex::traits::is_stack<TYP>::value ||
                             stdex::traits::is_priority_queue<TYP>::value>::type* = nullptr)
   {
-    std::string retVal;
-    retVal.push_back(SGP);
+    std::string ret_val;
+    ret_val.push_back(SGP);
     TYP localContainer(container);
     while (!localContainer.empty())
     {
-      retVal.append(value2stringInternal(localContainer.top()));
+      ret_val.append(value2stringInternal(localContainer.top()));
       localContainer.pop();
     }
-    retVal.push_back(EGP);
-    return retVal;
+    ret_val.push_back(EGP);
+    return ret_val;
   }
   template<typename TYP>
   static std::string value2stringInternal(const TYP& container,
                                           typename std::enable_if<stdex::traits::is_queue<TYP>::value>::type* = nullptr)
   {
-    std::string retVal;
-    retVal.push_back(SGP);
+    std::string ret_val;
+    ret_val.push_back(SGP);
     TYP localContainer(container);
     while (!localContainer.empty())
     {
-      retVal.append(value2stringInternal(localContainer.front()));
+      ret_val.append(value2stringInternal(localContainer.front()));
       localContainer.pop();
     }
-    retVal.push_back(EGP);
-    return retVal;
+    ret_val.push_back(EGP);
+    return ret_val;
   }
   template<typename TYP>
   static std::string value2stringInternal(
     const TYP& container,
     typename std::enable_if<stdex::traits::is_set_container<TYP>::value>::type* = nullptr)
   {
-    std::string retVal;
-    retVal.push_back(SGP);
+    std::string ret_val;
+    ret_val.push_back(SGP);
     for (auto value : container)
     {
-      retVal.append(value2stringInternal(value));
+      ret_val.append(value2stringInternal(value));
     }
-    retVal.push_back(EGP);
-    return retVal;
+    ret_val.push_back(EGP);
+    return ret_val;
   }
   template<typename TYP>
   static std::string value2stringInternal(
     const TYP& container,
     typename std::enable_if<stdex::traits::is_map_container<TYP>::value>::type* = nullptr)
   {
-    std::string retVal;
-    retVal.push_back(SGP);
+    std::string ret_val;
+    ret_val.push_back(SGP);
     for (auto value : container)
     {
-      retVal.append(value2stringInternal(value));
+      ret_val.append(value2stringInternal(value));
     }
-    retVal.push_back(EGP);
-    return retVal;
+    ret_val.push_back(EGP);
+    return ret_val;
   }
   template<typename TYP>
   static std::string value2stringInternal(const TYP& value,
@@ -436,12 +436,12 @@ private:
   template<typename _Tpl>
   static std::string tuple2string(const _Tpl& arguments)
   {
-    std::string retVal;
+    std::string ret_val;
     for (auto val : tuple2array_of_strings<_Tpl>(arguments, std::make_index_sequence<std::tuple_size<_Tpl>::value>()))
     {
-      retVal += val;
+      ret_val += val;
     }
-    return retVal;
+    return ret_val;
   }
   template<typename _Tpl, std::size_t... _I>
   static std::array<std::string, std::tuple_size<_Tpl>::value> tuple2array_of_strings(const _Tpl& tpl,
@@ -463,8 +463,8 @@ private:
     return std::string(SGP + std::to_string(static_cast<std::int64_t>(value)) + EGP);
   }
 
-  std_type_converter(); // not impl.
-  std_type_converter(const std_type_converter&); // not impl.
-  void operator=(const std_type_converter&); // not impl.
+  std_type_converter() = delete;
+  std_type_converter(const std_type_converter&) = delete;
+  void operator=(const std_type_converter&) = delete;
 };
 } // namespace manun

@@ -35,7 +35,7 @@ namespace manun {
 class ITypeIndex
 {
 public:
-  virtual ~ITypeIndex() {}
+  virtual ~ITypeIndex() = default;
   virtual std::type_index typeIndex() const = 0;
   virtual const std::string& typeName() const = 0;
 };
@@ -50,31 +50,31 @@ class converter_functions : public ITypeIndex
 {
 public:
   converter_functions(const std::string& name,
-                      string2value_func_t<value_t> objectCreateFunc,
-                      value2string_func_t<value_t> stringCreateFunc)
-    : mTypeName(name)
-    , m_string2value_func(objectCreateFunc)
-    , m_value2string_func(stringCreateFunc)
+                      string2value_func_t<value_t> object_create_func,
+                      value2string_func_t<value_t> string_create_func)
+    : type_name_(name)
+    , m_string2value_func_(object_create_func)
+    , m_value2string_func_(string_create_func)
   {
-    if (objectCreateFunc == nullptr || stringCreateFunc == nullptr)
+    if (object_create_func == nullptr || string_create_func == nullptr)
     {
       throw manun::NullptrException();
     }
   }
   converter_functions(const converter_functions& rhs)
-    : m_string2value_func(rhs.m_string2value_func)
-    , m_value2string_func(rhs.m_value2string_func)
+    : m_string2value_func_(rhs.m_string2value_func_)
+    , m_value2string_func_(rhs.m_value2string_func_)
   {}
 
-  virtual std::type_index typeIndex() const { return std::type_index(typeid(value_t)); }
-  virtual const std::string& typeName() const { return mTypeName; }
-  value_t string2value(const std::vector<std::string>& value) { return m_string2value_func(value); }
-  std::string value2string(const value_t& value) { return m_value2string_func(value); }
+  virtual std::type_index typeIndex() const override { return std::type_index(typeid(value_t)); }
+  virtual const std::string& typeName() const override { return type_name_; }
+  value_t string2value(const std::vector<std::string>& value) { return m_string2value_func_(value); }
+  std::string value2string(const value_t& value) { return m_value2string_func_(value); }
 
 private:
-  std::string mTypeName;
-  string2value_func_t<value_t> m_string2value_func;
-  value2string_func_t<value_t> m_value2string_func;
+  std::string type_name_;
+  string2value_func_t<value_t> m_string2value_func_;
+  value2string_func_t<value_t> m_value2string_func_;
 };
 
 class converter_factory
@@ -152,17 +152,17 @@ private:
     {
       throw manun::EntryDoesNotExistsException(typeid(value_t).name());
     }
-    auto retVal = dynamic_cast<converter_functions<value_t>*>((*iter).second);
-    if (retVal == nullptr)
+    auto ret_val = dynamic_cast<converter_functions<value_t>*>((*iter).second);
+    if (ret_val == nullptr)
     {
       throw manun::NullptrException();
     }
-    return retVal;
+    return ret_val;
   }
 
   static tCreatorMap& map();
 
-  tCreatorMap mObjCreatorFuncMap;
+  tCreatorMap obj_creator_func_map_;
 
   converter_factory(const converter_factory&); // not impl.
   void operator=(const converter_factory&); // not impl.

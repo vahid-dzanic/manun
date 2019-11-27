@@ -31,18 +31,21 @@
 
 namespace manun::convert {
 
-template<typename TYP>
-std::string toString(const TYP& value)
+template<typename _Tp>
+std::string toString(const _Tp& value)
 {
-  static_assert_by_type<TYP>();
-  return convert_proxy::value2string<TYP>(value);
+  static_assert_by_type<_Tp>();
+  return convert_proxy::value2string<_Tp>(value);
 }
 
 class toValue
 {
 public:
   toValue(const std::string& text)
-    : mText(text)
+    : text_(text)
+  {}
+  toValue(std::string&& text)
+    : text_(std::move(text))
   {}
   toValue() = delete; //! No default-constructor
   toValue(const toValue&) = delete; //! No copy-constructor
@@ -51,20 +54,16 @@ public:
   void* operator new[](std::size_t) = delete; //! No create on the heap
   toValue* operator&() = delete; //! No pointer alias
   const toValue* operator&() const = delete; //! No const pointer alias
-  //  toValue(std::string&& text)
-  //    : mText(std::move(text))
-  //  {
-  //  }
 
-  template<typename TYP>
-  operator TYP()
+  template<typename _Tp>
+  operator _Tp()
   {
-    static_assert_by_type<TYP>();
-    return convert_proxy::string2value<TYP>(mText);
+    static_assert_by_type<_Tp>();
+    return convert_proxy::string2value<_Tp>(text_);
   }
 
 private:
-  const std::string& mText;
+  const std::string& text_;
 };
 
 class func
@@ -72,71 +71,71 @@ class func
 public:
   static std::string toString(const std::string& pretty_function)
   {
-    std::string retVal("{");
+    std::string ret_val("{");
     std::size_t end_pos = pretty_function.find('(');
     if (end_pos != std::string::npos)
     {
       std::string temp = pretty_function.substr(0, end_pos);
       stdex::replace(temp, "*", " ");
       stdex::replace(temp, "&", " ");
-      retVal += stdex::split(temp, " ").back();
+      ret_val += stdex::split(temp, " ").back();
     }
     else
     {
-      retVal += pretty_function;
+      ret_val += pretty_function;
     }
-    retVal += "()";
-    retVal.push_back('}');
-    return retVal;
+    ret_val += "()";
+    ret_val.push_back('}');
+    return ret_val;
   }
 
   template<typename... _Args>
   static std::string toString(const std::string& pretty_function, _Args... __args)
   {
-    std::string retVal("{");
+    std::string ret_val("{");
     std::size_t end_pos = pretty_function.find('(');
     if (end_pos != std::string::npos)
     {
       std::string temp = pretty_function.substr(0, end_pos);
       stdex::replace(temp, "*", " ");
       stdex::replace(temp, "&", " ");
-      retVal += stdex::split(temp, " ").back();
+      ret_val += stdex::split(temp, " ").back();
     }
     else
     {
-      retVal += pretty_function;
+      ret_val += pretty_function;
     }
     auto tpl = std::make_tuple(__args...);
-    retVal.push_back('(');
-    retVal += types(tpl);
-    retVal += ")(";
-    retVal += types_with_value(tpl);
-    retVal.push_back(')');
-    retVal.push_back('}');
-    return retVal;
+    ret_val.push_back('(');
+    ret_val += types(tpl);
+    ret_val += ")(";
+    ret_val += types_with_value(tpl);
+    ret_val.push_back(')');
+    ret_val.push_back('}');
+    return ret_val;
   }
 
 private:
   template<typename _Tpl>
   static std::string types(const _Tpl& arguments)
   {
-    std::string retVal;
+    std::string ret_val;
     for (auto val : tuple2array_impl<_Tpl>(arguments, false, std::make_index_sequence<std::tuple_size<_Tpl>::value>()))
     {
-      retVal += val;
+      ret_val += val;
     }
-    retVal.pop_back();
-    return retVal;
+    ret_val.pop_back();
+    return ret_val;
   }
   template<typename _Tpl>
   static std::string types_with_value(const _Tpl& arguments)
   {
-    std::string retVal;
+    std::string ret_val;
     for (auto val : tuple2array_impl<_Tpl>(arguments, true, std::make_index_sequence<std::tuple_size<_Tpl>::value>()))
     {
-      retVal += val;
+      ret_val += val;
     }
-    return retVal;
+    return ret_val;
   }
   template<typename _Tpl, std::size_t... _I>
   static std::array<std::string, std::tuple_size<_Tpl>::value> tuple2array_impl(const _Tpl& tpl,

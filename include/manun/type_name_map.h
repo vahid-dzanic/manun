@@ -52,17 +52,17 @@ public:
     {
       return result->second;
     }
-    std::string retVal(containerName<TYP>());
-    retVal.append("<");
-    retVal.append(name<typename TYP::value_type>());
+    std::string ret_val(containerName<TYP>());
+    ret_val.append("<");
+    ret_val.append(name<typename TYP::value_type>());
     if (stdex::traits::is_array<TYP>::value)
     {
-      retVal.append(",");
-      retVal.append(std::to_string(stdex::traits::array_size<TYP>::value));
+      ret_val.append(",");
+      ret_val.append(std::to_string(stdex::traits::array_size<TYP>::value));
     }
-    retVal.append(">");
-    add<TYP>(retVal);
-    return retVal;
+    ret_val.append(">");
+    add<TYP>(ret_val);
+    return ret_val;
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_associative_container<TYP>::value>::type* = nullptr>
   static std::string name()
@@ -72,19 +72,19 @@ public:
     {
       return result->second;
     }
-    std::string retVal(containerName<TYP>());
-    retVal.append("<");
+    std::string ret_val(containerName<TYP>());
+    ret_val.append("<");
     if (stdex::traits::is_map_container<TYP>::value)
     {
-      retVal.append(name<typename TYP::value_type>());
+      ret_val.append(name<typename TYP::value_type>());
     }
     else
     {
-      retVal.append(name<typename TYP::key_type>());
+      ret_val.append(name<typename TYP::key_type>());
     }
-    retVal.append(">");
-    add<TYP>(retVal);
-    return retVal;
+    ret_val.append(">");
+    add<TYP>(ret_val);
+    return ret_val;
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_pair<TYP>::value>::type* = nullptr>
   static std::string name()
@@ -94,10 +94,10 @@ public:
     {
       return result->second;
     }
-    std::string retVal(containerName<TYP>() + "<" + name<typename TYP::first_type>() + "," +
+    std::string ret_val(containerName<TYP>() + "<" + name<typename TYP::first_type>() + "," +
                        name<typename TYP::second_type>() + ">");
-    add<TYP>(retVal);
-    return retVal;
+    add<TYP>(ret_val);
+    return ret_val;
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_tuple<TYP>::value>::type* = nullptr>
   static std::string name()
@@ -107,9 +107,9 @@ public:
     {
       return result->second;
     }
-    std::string retVal(containerName<TYP>() + "<" + tuple_types_in_a_row<TYP>() + ">");
-    add<TYP>(retVal);
-    return retVal;
+    std::string ret_val(containerName<TYP>() + "<" + tuple_types_in_a_row<TYP>() + ">");
+    add<TYP>(ret_val);
+    return ret_val;
   }
 
 private:
@@ -118,13 +118,13 @@ private:
   template<typename _Tpl>
   static std::string tuple_types_in_a_row()
   {
-    std::string retVal;
+    std::string ret_val;
     for (auto val : tuple_types_to_array_of_str<_Tpl>(std::make_index_sequence<std::tuple_size<_Tpl>::value>()))
     {
-      retVal += val;
+      ret_val += val;
     }
-    retVal.pop_back(); // remove last [,] sign
-    return retVal;
+    ret_val.pop_back(); // remove last [,] sign
+    return ret_val;
   }
   template<typename _Tpl, std::size_t... _I>
   static std::array<std::string, std::tuple_size<_Tpl>::value> tuple_types_to_array_of_str(std::index_sequence<_I...>)
@@ -227,9 +227,9 @@ private:
     return "std::tuple";
   }
 
-  tTypeMap mTypeMap;
+  tTypeMap type_map_;
 
-  type_name_map(const type_name_map&); // not impl.
-  void operator=(const type_name_map&); // not impl.
+  type_name_map(const type_name_map&) = delete;
+  void operator=(const type_name_map&) = delete;
 };
 } // namespace manun

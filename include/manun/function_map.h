@@ -46,12 +46,12 @@ public:
     static_assert(std::is_same<typename _TFunc::result_type, void>::value,
                   "Only functions with [void] return type are supported --> function<void(...)>");
     auto func_name = func.name() + types<typename _TFunc::arguments>();
-    auto iter = func_map.find(func_name);
-    if (iter != func_map.end())
+    auto iter = func_map_.find(func_name);
+    if (iter != func_map_.end())
     {
       throw FunctionAlreadyRegisteredException(func_name);
     }
-    func_map.insert(std::make_pair(func_name, new func_container<_TFunc>(func)));
+    func_map_.insert(std::make_pair(func_name, new func_container<_TFunc>(func)));
   }
   template<typename _TFunc>
   void remove(const _TFunc& func)
@@ -69,7 +69,7 @@ private:
   class executer
   {
   public:
-    virtual ~executer() {}
+    virtual ~executer() = default;
     virtual void execute(const std::vector<std::string>& arguments) = 0;
   };
   template<typename _TFunc>
@@ -77,10 +77,10 @@ private:
   {
   public:
     func_container(const _TFunc& func)
-      : mFunc(func)
+      : func_(func)
     {}
 
-    virtual void execute(const std::vector<std::string>& arguments)
+    virtual void execute(const std::vector<std::string>& arguments) override
     {
       auto index_seq = std::make_index_sequence<std::tuple_size<_Tpl>::value>();
       invoke(vec2tup(arguments, index_seq), index_seq);
@@ -92,7 +92,7 @@ private:
     template<typename _Tpl, std::size_t... _I>
     void invoke(_Tpl&& args, std::index_sequence<_I...>)
     {
-      mFunc(std::get<_I>(std::forward<_Tpl>(args))...);
+      func_(std::get<_I>(std::forward<_Tpl>(args))...);
     }
     template<std::size_t... _I>
     _Tpl vec2tup(const std::vector<std::string>& vec, std::index_sequence<_I...>)
@@ -100,7 +100,7 @@ private:
       return std::make_tuple(convert_proxy::string2value<typename std::tuple_element<_I, _Tpl>::type>(vec[_I])...);
     }
 
-    _TFunc mFunc;
+    _TFunc func_;
   };
 
   template<typename _Tpl>
@@ -110,14 +110,14 @@ private:
     {
       return "";
     }
-    std::string retVal("(");
+    std::string ret_val("(");
     for (auto val : tuple2array_impl<_Tpl>(std::make_index_sequence<std::tuple_size<_Tpl>::value>()))
     {
-      retVal += val;
+      ret_val += val;
     }
-    retVal.pop_back();
-    retVal.push_back(')');
-    return retVal;
+    ret_val.pop_back();
+    ret_val.push_back(')');
+    return ret_val;
   }
   template<typename _Tpl, std::size_t... _I>
   std::array<std::string, std::tuple_size<_Tpl>::value> tuple2array_impl(std::index_sequence<_I...>)
@@ -126,6 +126,6 @@ private:
       {(type_name_map::name<typename std::tuple_element<_I, _Tpl>::type>() + ",")...}};
   }
 
-  std::map<std::string, executer*> func_map;
+  std::map<std::string, executer*> func_map_;
 };
 } // namespace manun

@@ -27,16 +27,16 @@
 namespace manun {
 
 function_map::function_map(function_map&& rhs)
-  : func_map(std::move(rhs.func_map))
+  : func_map_(std::move(rhs.func_map_))
 {}
 
 function_map::~function_map()
 {
-  for (auto val : func_map)
+  for (auto val : func_map_)
   {
     delete val.second;
   }
-  func_map.clear();
+  func_map_.clear();
 }
 
 void function_map::execute(const std::string& value)
@@ -62,8 +62,8 @@ void function_map::execute(const std::string& value)
   }
   std::string func_name = raw.substr(0, pos2);
   std::vector<std::string> args = extractGroups(rm_edge_identifier(raw.substr(pos2)));
-  auto iter = func_map.find(func_name);
-  if (iter == func_map.end())
+  auto iter = func_map_.find(func_name);
+  if (iter == func_map_.end())
   {
     throw FunctionNotFoundException(func_name);
   }
@@ -72,13 +72,13 @@ void function_map::execute(const std::string& value)
 
 void function_map::remove(const std::string& name)
 {
-  auto iter = func_map.find(name);
-  if (iter == func_map.end())
+  auto iter = func_map_.find(name);
+  if (iter == func_map_.end())
   {
     throw FunctionNotFoundException(name);
   }
   delete (*iter).second;
-  func_map.erase(iter);
+  func_map_.erase(iter);
 }
 
 } // namespace manun

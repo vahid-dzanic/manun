@@ -34,9 +34,8 @@ class test_fixture_convert2 : public ::testing::Test
 {};
 
 typedef ::testing::Types<bool,
-                         char
-                         //, wchar_t
-                         ,
+                         char,
+                         //wchar_t
                          char16_t,
                          char32_t,
                          float,
@@ -73,9 +72,8 @@ typedef ::testing::Types<bool,
   builtin_and_std_types;
 
 typedef ::testing::Types<bool,
-                         char
-                         //, wchar_t
-                         ,
+                         char,
+                         //wchar_t
                          char16_t,
                          char32_t,
                          float,
@@ -195,9 +193,9 @@ TEST(test_toStr, text_std_string_toString)
 TEST(test_manun, marshalling_and_unmarshalling_with_vector_of_int32)
 {
   std::vector<std::int32_t> vec(10, 0);
-  for (std::size_t i = 0; i < vec.size(); ++i)
+  for (auto i = 0u; i < vec.size(); ++i)
   {
-    vec[i] = i;
+    vec[i] = static_cast<std::int32_t>(i);
   }
   std::string marshalled = manun::convert::toString(vec);
   std::vector<std::int32_t> unmarshalled = manun::convert::toValue(marshalled);
