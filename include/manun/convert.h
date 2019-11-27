@@ -145,11 +145,11 @@ private:
   {
     if (with_value)
     {
-      return std::array<std::string, std::tuple_size<_Tpl>::value>{{convert::toString(std::get<_I>(tpl))...}};
+      return std::array<std::string, std::tuple_size<_Tpl>::value> {{convert::toString(std::get<_I>(tpl))...}};
     }
     else
     {
-      return std::array<std::string, std::tuple_size<_Tpl>::value>{
+      return std::array<std::string, std::tuple_size<_Tpl>::value> {
         {(type_name_map::name<typename std::tuple_element<_I, _Tpl>::type>() + ",")...}};
     }
   }

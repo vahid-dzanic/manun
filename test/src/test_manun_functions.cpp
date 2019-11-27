@@ -178,8 +178,7 @@ TEST(test_manun_func, test1)
   map.execute("{func6()}");
   map.execute("{ABC::func7()}");
 
-  std::string jdjdjd =
-    manun::convert::toString(std::make_tuple(std::string("hallo du"), std::uint32_t(1), double(2)));
+  std::string jdjdjd = manun::convert::toString(std::make_tuple(std::string("hallo du"), std::uint32_t(1), double(2)));
 
   fD(manun::convert::toValue(jdjdjd));
   fD(manun::convert::toValue("{STR=abcdefgahlkasjdf}"),

@@ -222,8 +222,7 @@ public:
   }
   static std::string value2string(const TstClass* tstclass)
   {
-    return std::string(manun::convert::toString(tstclass->member1) +
-                       manun::convert::toString(tstclass->member2) +
+    return std::string(manun::convert::toString(tstclass->member1) + manun::convert::toString(tstclass->member2) +
                        manun::convert::toString(tstclass->member3));
   }
   static TstClass* string2value(const std::vector<std::string>& vec)

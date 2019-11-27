@@ -220,8 +220,8 @@ private:
     return retVal;
   }
   template<typename TYP,
-           typename std::enable_if<stdex::traits::is_vector<TYP>::value ||
-                                   stdex::traits::is_deque<TYP>::value>::type* = nullptr>
+           typename std::enable_if<stdex::traits::is_vector<TYP>::value || stdex::traits::is_deque<TYP>::value>::type* =
+             nullptr>
   static TYP string2valueInternal(const std::string& txt)
   {
     TYP retVal;
@@ -379,9 +379,8 @@ private:
     return retVal;
   }
   template<typename TYP>
-  static std::string value2stringInternal(
-    const TYP& container,
-    typename std::enable_if<stdex::traits::is_queue<TYP>::value>::type* = nullptr)
+  static std::string value2stringInternal(const TYP& container,
+                                          typename std::enable_if<stdex::traits::is_queue<TYP>::value>::type* = nullptr)
   {
     std::string retVal;
     retVal.push_back(SGP);
@@ -429,9 +428,8 @@ private:
     return std::string(SGP + value2stringInternal(value.first) + value2stringInternal(value.second) + EGP);
   }
   template<typename TYP>
-  static std::string value2stringInternal(
-    const TYP& value,
-    typename std::enable_if<stdex::traits::is_tuple<TYP>::value>::type* = nullptr)
+  static std::string value2stringInternal(const TYP& value,
+                                          typename std::enable_if<stdex::traits::is_tuple<TYP>::value>::type* = nullptr)
   {
     return std::string(SGP + tuple2string(value) + EGP);
   }
@@ -449,7 +447,7 @@ private:
   static std::array<std::string, std::tuple_size<_Tpl>::value> tuple2array_of_strings(const _Tpl& tpl,
                                                                                       std::index_sequence<_I...>)
   {
-    return std::array<std::string, std::tuple_size<_Tpl>::value>{{value2stringInternal(std::get<_I>(tpl))...}};
+    return std::array<std::string, std::tuple_size<_Tpl>::value> {{value2stringInternal(std::get<_I>(tpl))...}};
   }
   template<typename TYP>
   static std::string value2stringInternal(

@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
 ////}
 
 //// For any dynamic stuff (names or payload) which are not part of the protocol use ASCII STX ('\x02') as prefix and
-///ETX ('\x03') as postfix.
+/// ETX ('\x03') as postfix.
 
 ////<func name="\x02...\x03"></func>
 ////<args count="."></args>

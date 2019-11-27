@@ -122,7 +122,7 @@ private:
   template<typename _Tpl, std::size_t... _I>
   std::array<std::string, std::tuple_size<_Tpl>::value> tuple2array_impl(std::index_sequence<_I...>)
   {
-    return std::array<std::string, std::tuple_size<_Tpl>::value>{
+    return std::array<std::string, std::tuple_size<_Tpl>::value> {
       {(type_name_map::name<typename std::tuple_element<_I, _Tpl>::type>() + ",")...}};
   }
 

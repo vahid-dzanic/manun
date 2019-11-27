@@ -129,7 +129,7 @@ private:
   template<typename _Tpl, std::size_t... _I>
   static std::array<std::string, std::tuple_size<_Tpl>::value> tuple_types_to_array_of_str(std::index_sequence<_I...>)
   {
-    return std::array<std::string, std::tuple_size<_Tpl>::value>{
+    return std::array<std::string, std::tuple_size<_Tpl>::value> {
       {(name<typename std::tuple_element<_I, _Tpl>::type>() + ",")...}};
   }
 

@@ -26,8 +26,7 @@
 
 namespace manun {
 
-TypemismatchException::TypemismatchException(const std::string& expectedType,
-                                                           const std::string& parsedType)
+TypemismatchException::TypemismatchException(const std::string& expectedType, const std::string& parsedType)
   : mWhat("Type mismatch, expected is [" + expectedType + "] parsed from text is [" + parsedType + "].")
 {}
 const char* TypemismatchException::what() const throw() { return mWhat.c_str(); }
