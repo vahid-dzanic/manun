@@ -30,7 +30,7 @@
 #include <ios>
 #include <sstream>
 
-namespace chili::manun {
+namespace manun {
 class std_type_converter
 {
 public:
@@ -90,7 +90,7 @@ public:
     float F32;
     std::uint32_t U32;
   };
-#ifdef __CHILI_CONVERT_ARITHMETIC_IN_DEC
+#ifdef __VDC_CONVERT_ARITHMETIC_IN_DEC
   template<typename TYP,
            typename std::enable_if<std::is_integral<TYP>::value && std::is_unsigned<TYP>::value>::type* = nullptr>
   static TYP string2arithmetic(const std::string& txt)
@@ -145,7 +145,7 @@ public:
 //    std::istringstream(txt) >> std::hex >> retVal;
 //    return static_cast<TYP>(retVal);
 //  }
-#endif //__CHILI_CONVERT_ARITHMETIC_IN_DEC
+#endif //__VDC_CONVERT_ARITHMETIC_IN_DEC
   template<typename TYP, typename std::enable_if<std::is_floating_point<TYP>::value>::type* = nullptr>
   static TYP string2arithmetic(const std::string& txt)
   {
@@ -168,13 +168,13 @@ public:
   static std::string arithmetic2string(TYP value,
                                        typename std::enable_if<std::is_integral<TYP>::value>::type* = nullptr)
   {
-#ifdef __CHILI_CONVERT_ARITHMETIC_IN_DEC
+#ifdef __VDC_CONVERT_ARITHMETIC_IN_DEC
     return std::to_string(value);
 #else // convert in hex
     std::ostringstream buffer;
     buffer << std::hex << value;
     return buffer.str();
-#endif //__CHILI_CONVERT_ARITHMETIC_IN_DEC
+#endif //__VDC_CONVERT_ARITHMETIC_IN_DEC
   }
   template<typename TYP>
   static std::string arithmetic2string(TYP value,
@@ -469,4 +469,4 @@ private:
   std_type_converter(const std_type_converter&); // not impl.
   void operator=(const std_type_converter&); // not impl.
 };
-} // namespace chili::manun
+} // namespace manun

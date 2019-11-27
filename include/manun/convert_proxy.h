@@ -26,7 +26,7 @@
 
 #include "std_type_converter.h"
 
-namespace chili::manun {
+namespace manun {
 class convert_proxy
 {
 public:
@@ -72,4 +72,4 @@ private:
   convert_proxy(const convert_proxy&); // not impl.
   void operator=(const convert_proxy&); // not impl.
 };
-} // namespace chili::manun
+} // namespace manun

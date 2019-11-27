@@ -24,7 +24,7 @@
 // License and a copy of the GNU General Public License along with
 // manun. If not, see <http://www.gnu.org/licenses/>.
 
-namespace chili::manun {
+namespace manun {
 
 TypemismatchException::TypemismatchException(const std::string& expectedType,
                                                            const std::string& parsedType)
@@ -82,4 +82,4 @@ FunctionAlreadyRegisteredException::FunctionAlreadyRegisteredException(const std
 {}
 const char* FunctionAlreadyRegisteredException::what() const throw() { return mWhat.c_str(); }
 
-} // namespace chili::manun
+} // namespace manun

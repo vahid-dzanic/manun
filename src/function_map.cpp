@@ -24,7 +24,7 @@
 // License and a copy of the GNU General Public License along with
 // manun. If not, see <http://www.gnu.org/licenses/>.
 
-namespace chili::manun {
+namespace manun {
 
 function_map::function_map(function_map&& rhs)
   : func_map(std::move(rhs.func_map))
@@ -81,4 +81,4 @@ void function_map::remove(const std::string& name)
   func_map.erase(iter);
 }
 
-} // namespace chili::manun
+} // namespace manun

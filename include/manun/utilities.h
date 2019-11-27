@@ -29,7 +29,7 @@
 
 #include <stdex/functional_ex.h>
 
-namespace chili::manun {
+namespace manun {
 
 static constexpr char STX = '\x02'; // ascii --> start of text
 static constexpr char ETX = '\x03'; // ascii --> end of text
@@ -44,8 +44,8 @@ static constexpr void static_assert_by_type()
   static_assert(not std::is_same<std::wstring, TYP>::value, "Not supported type: std::wstring");
   static_assert(not std::is_null_pointer<TYP>::value, "Not supported type: nullptr");
   static_assert(not std::is_array<TYP>::value, "Not supported type: C style arrays");
-  static_assert(not is_std_function<TYP>::value,
-                "Not supported type: std::function use chili::manun::convert::func::toString");
+  static_assert(not stdex::is_std_function<TYP>::value,
+                "Not supported type: std::function use manun::convert::func::toString");
   static_assert(not std::is_function<TYP>::value, "Not supported type: function");
   static_assert(not std::is_union<TYP>::value, "Not supported type: union");
   static_assert(not std::is_void<TYP>::value, "Not supported type: void");
@@ -79,4 +79,4 @@ std::string extractContent(const std::string& text)
 
 std::string rm_edge_identifier(const std::string& txt);
 
-} // namespace chili::manun
+} // namespace manun

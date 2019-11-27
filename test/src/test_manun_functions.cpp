@@ -46,13 +46,13 @@ void foo(std::list<std::uint32_t> data)
 
 TEST(test_manun_func, test_simple_function_call)
 {
-  chili::manun::function_map fmap;
-  auto f1 = chili_create(foo);
+  manun::function_map fmap;
+  auto f1 = stdex_create(foo);
   fmap.add(f1);
 
   std::list<std::uint32_t> data(9, 42);
-  std::cout << chili::manun::convert::func::toString(f1.name(), data);
-  fmap.execute(chili::manun::convert::func::toString(f1.name(), data));
+  std::cout << manun::convert::func::toString(f1.name(), data);
+  fmap.execute(manun::convert::func::toString(f1.name(), data));
 }
 
 namespace def {
@@ -62,12 +62,12 @@ void func3(std::uint32_t a) { std::cout << a << std::endl; }
 void func4(std::string a, std::uint32_t b, double c)
 {
   std::cout << a << " " << b << " " << c << std::endl;
-  std::cout << chili::manun::convert::func::toString(__PRETTY_FUNCTION__, a, b, c) << std::endl;
+  std::cout << manun::convert::func::toString(__PRETTY_FUNCTION__, a, b, c) << std::endl;
 }
 } // namespace def
 
 namespace abc { namespace def {
-void func3(std::uint32_t a) { std::cout << chili::manun::convert::func::toString(__PRETTY_FUNCTION__, a) << std::endl; }
+void func3(std::uint32_t a) { std::cout << manun::convert::func::toString(__PRETTY_FUNCTION__, a) << std::endl; }
 }} // namespace abc::def
 
 struct ABC
@@ -75,19 +75,19 @@ struct ABC
   void func5(std::string a, std::uint32_t b, double c)
   {
     std::cout << a << " " << b << " " << c << std::endl;
-    std::cout << chili::manun::convert::func::toString(__PRETTY_FUNCTION__, a, b, c) << std::endl;
+    std::cout << manun::convert::func::toString(__PRETTY_FUNCTION__, a, b, c) << std::endl;
   }
   void func7()
   {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
-    std::cout << chili::manun::convert::func::toString(__PRETTY_FUNCTION__) << std::endl;
+    std::cout << manun::convert::func::toString(__PRETTY_FUNCTION__) << std::endl;
   }
 };
 
 void func6()
 {
   std::cout << " VOID " << std::endl;
-  std::cout << chili::manun::convert::func::toString(__PRETTY_FUNCTION__) << std::endl;
+  std::cout << manun::convert::func::toString(__PRETTY_FUNCTION__) << std::endl;
 }
 
 // TEST(test_manun_func, test1)
@@ -95,12 +95,12 @@ void func6()
 //  std::cout << std::endl;
 //  std::cout << std::endl;
 
-////  std::cout << std::boolalpha << chili::stdex::traits::is_tuple<std::tuple<int, double>>::value << std::endl;
-////  std::cout << std::boolalpha << chili::stdex::traits::is_tuple<A>::value << std::endl;
-////  std::cout << std::boolalpha << (chili::stdex::traits::array_size<std::array<int, 17>>::value == 17) << std::endl;
-////  std::cout << std::boolalpha << (chili::stdex::traits::array_size<A>::value == 0) << std::endl;
+////  std::cout << std::boolalpha << stdex::traits::is_tuple<std::tuple<int, double>>::value << std::endl;
+////  std::cout << std::boolalpha << stdex::traits::is_tuple<A>::value << std::endl;
+////  std::cout << std::boolalpha << (stdex::traits::array_size<std::array<int, 17>>::value == 17) << std::endl;
+////  std::cout << std::boolalpha << (stdex::traits::array_size<A>::value == 0) << std::endl;
 
-//  chili::manun::function_map map;
+//  manun::function_map map;
 
 //  std::function<void(std::int32_t)> fA = std::bind(def::func1, std::placeholders::_1);
 //  std::function<void(double)> fB = std::bind(def::func2, std::placeholders::_1);
@@ -120,23 +120,23 @@ void func6()
 //  std::cout << std::endl;
 //  std::cout << std::endl;
 
-//  chili::manun::function_map map;
+//  manun::function_map map;
 
 //  ABC* a = new ABC();
 
-//  auto fA = chili_create(def::func1);
+//  auto fA = stdex_create(def::func1);
 //  map.add(fA);
-//  auto fB = chili_create(def::func2);
+//  auto fB = stdex_create(def::func2);
 //  map.add(fB);
-//  auto fC = chili_create(def::func3);
+//  auto fC = stdex_create(def::func3);
 //  map.add(fC);
-//  auto fD = chili_create(def::func4);
+//  auto fD = stdex_create(def::func4);
 //  map.add(fD);
-//  map.add(chili_bind(&ABC::func5, a, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
-//  map.add(chili_create(func6));
-//  map.add(chili_create(&ABC::func7, a));
+//  map.add(stdex_bind(&ABC::func5, a, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+//  map.add(stdex_create(func6));
+//  map.add(stdex_create(&ABC::func7, a));
 
-//  map.execute(chili::manun::convert::func::toString(fC.name(), static_cast<std::uint32_t>(3)));
+//  map.execute(manun::convert::func::toString(fC.name(), static_cast<std::uint32_t>(3)));
 
 ////  map.execute("{def::func3(UI32)({UI32=2A})}");
 ////  map.execute("{def::func4(STR,UI32,F64)({STR=abcdefgahlkasjdf}{UI32=2a}{F64=3fd41b2f769cf0e0})}");
@@ -151,7 +151,7 @@ TEST(test_manun_func, test1)
   std::cout << std::endl;
   std::cout << std::endl;
 
-  chili::manun::function_map map;
+  manun::function_map map;
 
   ABC* a = new ABC();
 
@@ -160,17 +160,17 @@ TEST(test_manun_func, test1)
 
   delete cdf;
 
-  auto fA = chili_create(def::func1);
+  auto fA = stdex_create(def::func1);
   map.add(fA);
-  auto fB = chili_create(def::func2);
+  auto fB = stdex_create(def::func2);
   map.add(fB);
-  auto fC = chili_create(def::func3);
+  auto fC = stdex_create(def::func3);
   map.add(fC);
-  auto fD = chili_create(def::func4);
+  auto fD = stdex_create(def::func4);
   map.add(fD);
-  map.add(chili_bind(&ABC::func5, a, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
-  map.add(chili_create(func6));
-  map.add(chili_create(&ABC::func7, a));
+  map.add(stdex_bind(&ABC::func5, a, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+  map.add(stdex_create(func6));
+  map.add(stdex_create(&ABC::func7, a));
 
   map.execute("{def::func3(UI32)({UI32=2A})}");
   map.execute("{def::func4(STR,UI32,F64)({STR=abcdefgahlkasjdf}{UI32=2a}{F64=3fd41b2f769cf0e0})}");
@@ -179,15 +179,15 @@ TEST(test_manun_func, test1)
   map.execute("{ABC::func7()}");
 
   std::string jdjdjd =
-    chili::manun::convert::toString(std::make_tuple(std::string("hallo du"), std::uint32_t(1), double(2)));
+    manun::convert::toString(std::make_tuple(std::string("hallo du"), std::uint32_t(1), double(2)));
 
-  fD(chili::manun::convert::toValue(jdjdjd));
-  fD(chili::manun::convert::toValue("{STR=abcdefgahlkasjdf}"),
-     chili::manun::convert::toValue("{UI32=2a}"),
-     chili::manun::convert::toValue("{F64=3fd41b2f769cf0e0}"));
-  fD(chili::manun::convert::toValue("{STR=abcdefgahlkasjdf}"),
-     chili::manun::convert::toValue("{F64=3fd41b2f769cf0e0}"),
-     chili::manun::convert::toValue("{UI32=2a}"));
+  fD(manun::convert::toValue(jdjdjd));
+  fD(manun::convert::toValue("{STR=abcdefgahlkasjdf}"),
+     manun::convert::toValue("{UI32=2a}"),
+     manun::convert::toValue("{F64=3fd41b2f769cf0e0}"));
+  fD(manun::convert::toValue("{STR=abcdefgahlkasjdf}"),
+     manun::convert::toValue("{F64=3fd41b2f769cf0e0}"),
+     manun::convert::toValue("{UI32=2a}"));
   std::cout << "----------------------------------------------------------------------------------------------"
             << std::endl;
 }

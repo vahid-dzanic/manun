@@ -24,7 +24,7 @@
 // License and a copy of the GNU General Public License along with
 // manun. If not, see <http://www.gnu.org/licenses/>.
 
-namespace chili::manun {
+namespace manun {
 
 type_name_map::type_name_map() { addBuiltInTypeNames(); }
 
@@ -63,4 +63,4 @@ void type_name_map::addBuiltInTypeNames()
            which may be Unicode characters in some compilers. */
 }
 
-} // namespace chili::manun
+} // namespace manun

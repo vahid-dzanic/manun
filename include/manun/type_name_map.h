@@ -27,7 +27,7 @@
 #include <stdex/std_type_sets.h>
 #include <typeindex>
 
-namespace chili::manun {
+namespace manun {
 class type_name_map
 {
 public:
@@ -232,4 +232,4 @@ private:
   type_name_map(const type_name_map&); // not impl.
   void operator=(const type_name_map&); // not impl.
 };
-} // namespace chili::manun
+} // namespace manun

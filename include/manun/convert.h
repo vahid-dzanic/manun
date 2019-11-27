@@ -29,7 +29,7 @@
 #include <tuple>
 #include <utility>
 
-namespace chili::manun::convert {
+namespace manun::convert {
 
 template<typename TYP>
 std::string toString(const TYP& value)
@@ -77,9 +77,9 @@ public:
     if (end_pos != std::string::npos)
     {
       std::string temp = pretty_function.substr(0, end_pos);
-      chili::stdex::replace(temp, "*", " ");
-      chili::stdex::replace(temp, "&", " ");
-      retVal += chili::stdex::split(temp, " ").back();
+      stdex::replace(temp, "*", " ");
+      stdex::replace(temp, "&", " ");
+      retVal += stdex::split(temp, " ").back();
     }
     else
     {
@@ -98,9 +98,9 @@ public:
     if (end_pos != std::string::npos)
     {
       std::string temp = pretty_function.substr(0, end_pos);
-      chili::stdex::replace(temp, "*", " ");
-      chili::stdex::replace(temp, "&", " ");
-      retVal += chili::stdex::split(temp, " ").back();
+      stdex::replace(temp, "*", " ");
+      stdex::replace(temp, "&", " ");
+      retVal += stdex::split(temp, " ").back();
     }
     else
     {
@@ -154,4 +154,4 @@ private:
     }
   }
 };
-} // namespace chili::manun::convert
+} // namespace manun::convert

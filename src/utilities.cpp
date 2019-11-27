@@ -24,7 +24,7 @@
 // License and a copy of the GNU General Public License along with
 // manun. If not, see <http://www.gnu.org/licenses/>.
 
-namespace chili::manun {
+namespace manun {
 
 std::vector<std::string> extractGroups(const std::string& text, char sgp, char egp)
 {
@@ -84,4 +84,4 @@ std::string rm_edge_identifier(const std::string& txt)
   return "";
 }
 
-} // namespace chili::manun
+} // namespace manun

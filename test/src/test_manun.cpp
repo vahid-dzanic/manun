@@ -98,70 +98,70 @@ TYPED_TEST_CASE(test_fixture_convert2, builtin);
 TYPED_TEST(test_fixture_convert1, test_convert_toString)
 {
   TypeParam param;
-  auto str = chili::manun::convert::toString(param);
+  auto str = manun::convert::toString(param);
   (void)str;
 }
 
 TYPED_TEST(test_fixture_convert1, test_convert_toString_and_toValue)
 {
   TypeParam param;
-  auto str = chili::manun::convert::toString(param);
-  TypeParam paramRet = chili::manun::convert::toValue(str);
+  auto str = manun::convert::toString(param);
+  TypeParam paramRet = manun::convert::toValue(str);
   (void)paramRet;
 }
 
 TYPED_TEST(test_fixture_convert2, test_convert_builtin_toString)
 {
   TypeParam param = 17;
-  auto str = chili::manun::convert::toString(param);
+  auto str = manun::convert::toString(param);
   (void)str;
 }
 
 TYPED_TEST(test_fixture_convert2, test_convert_builtin_toString_and_toValue)
 {
   TypeParam min = std::numeric_limits<TypeParam>::min();
-  auto str = chili::manun::convert::toString(min);
-  TypeParam ret = chili::manun::convert::toValue(str);
+  auto str = manun::convert::toString(min);
+  TypeParam ret = manun::convert::toValue(str);
   EXPECT_EQ(min, ret);
 
   min += 1;
-  str = chili::manun::convert::toString(min);
-  ret = chili::manun::convert::toValue(str);
+  str = manun::convert::toString(min);
+  ret = manun::convert::toValue(str);
   EXPECT_EQ(min, ret);
 
   min -= 2;
-  str = chili::manun::convert::toString(min);
-  ret = chili::manun::convert::toValue(str);
+  str = manun::convert::toString(min);
+  ret = manun::convert::toValue(str);
   EXPECT_EQ(min, ret);
 
   TypeParam max = std::numeric_limits<TypeParam>::max();
-  str = chili::manun::convert::toString(max);
-  ret = chili::manun::convert::toValue(str);
+  str = manun::convert::toString(max);
+  ret = manun::convert::toValue(str);
   EXPECT_EQ(max, ret);
 
   max += 1;
-  str = chili::manun::convert::toString(max);
-  ret = chili::manun::convert::toValue(str);
+  str = manun::convert::toString(max);
+  ret = manun::convert::toValue(str);
   EXPECT_EQ(max, ret);
 
   max -= 2;
-  str = chili::manun::convert::toString(max);
-  ret = chili::manun::convert::toValue(str);
+  str = manun::convert::toString(max);
+  ret = manun::convert::toValue(str);
   EXPECT_EQ(max, ret);
 
   TypeParam null = 0;
-  str = chili::manun::convert::toString(null);
-  ret = chili::manun::convert::toValue(str);
+  str = manun::convert::toString(null);
+  ret = manun::convert::toValue(str);
   EXPECT_EQ(null, ret);
 
   null += 1;
-  str = chili::manun::convert::toString(null);
-  ret = chili::manun::convert::toValue(str);
+  str = manun::convert::toString(null);
+  ret = manun::convert::toValue(str);
   EXPECT_EQ(null, ret);
 
   null -= 2;
-  str = chili::manun::convert::toString(null);
-  ret = chili::manun::convert::toValue(str);
+  str = manun::convert::toString(null);
+  ret = manun::convert::toValue(str);
   EXPECT_EQ(null, ret);
 
   auto min1 = std::numeric_limits<TypeParam>::min();
@@ -169,8 +169,8 @@ TYPED_TEST(test_fixture_convert2, test_convert_builtin_toString_and_toValue)
   auto delta = std::numeric_limits<TypeParam>::max() / 16.0;
   for (TypeParam i = min1; i < max1; i += delta)
   {
-    auto str = chili::manun::convert::toString(i);
-    TypeParam paramRet = chili::manun::convert::toValue(str);
+    auto str = manun::convert::toString(i);
+    TypeParam paramRet = manun::convert::toValue(str);
     EXPECT_EQ(i, paramRet);
   }
 }
@@ -178,7 +178,7 @@ TYPED_TEST(test_fixture_convert2, test_convert_builtin_toString_and_toValue)
 TEST(test_toStr, text_std_string_toString)
 {
   std::string param;
-  auto actual = chili::manun::convert::toString(param);
+  auto actual = manun::convert::toString(param);
   std::string expected("{STR=}");
   EXPECT_EQ(expected, actual);
 }
@@ -187,7 +187,7 @@ TEST(test_toStr, text_std_string_toString)
 // TEST(test_toStr, text_longdouble_toString)
 //{
 //  long double param = 3.14;
-//  auto actual = chili::manun::convert::toString(param);
+//  auto actual = manun::convert::toString(param);
 //  std::string expected("{F96=3.14}");
 //  EXPECT_EQ(expected, actual);
 //}
@@ -199,8 +199,8 @@ TEST(test_manun, marshalling_and_unmarshalling_with_vector_of_int32)
   {
     vec[i] = i;
   }
-  std::string marshalled = chili::manun::convert::toString(vec);
-  std::vector<std::int32_t> unmarshalled = chili::manun::convert::toValue(marshalled);
+  std::string marshalled = manun::convert::toString(vec);
+  std::vector<std::int32_t> unmarshalled = manun::convert::toValue(marshalled);
 
   for (std::size_t i = 0; i < unmarshalled.size(); ++i)
   {
@@ -218,20 +218,20 @@ public:
   {}
   static void register_converter()
   {
-    chili::manun::converter_factory::add<TstClass*>("TstClass*", TstClass::string2value, TstClass::value2string);
+    manun::converter_factory::add<TstClass*>("TstClass*", TstClass::string2value, TstClass::value2string);
   }
   static std::string value2string(const TstClass* tstclass)
   {
-    return std::string(chili::manun::convert::toString(tstclass->member1) +
-                       chili::manun::convert::toString(tstclass->member2) +
-                       chili::manun::convert::toString(tstclass->member3));
+    return std::string(manun::convert::toString(tstclass->member1) +
+                       manun::convert::toString(tstclass->member2) +
+                       manun::convert::toString(tstclass->member3));
   }
   static TstClass* string2value(const std::vector<std::string>& vec)
   {
     TstClass* retVal = new TstClass();
-    retVal->member1 = chili::manun::convert::toValue(vec[0]);
-    retVal->member2 = chili::manun::convert::toValue(vec[1]);
-    retVal->member3 = chili::manun::convert::toValue(vec[2]);
+    retVal->member1 = manun::convert::toValue(vec[0]);
+    retVal->member2 = manun::convert::toValue(vec[1]);
+    retVal->member3 = manun::convert::toValue(vec[2]);
     return retVal;
   }
 
@@ -252,10 +252,10 @@ TEST(test_converter_factory, text_TstClass_toString)
   TstClass::register_converter();
   TstClass* ptr1 = new TstClass();
 
-  auto str = chili::manun::convert::toString(ptr1);
+  auto str = manun::convert::toString(ptr1);
   //  std::cout << str << std::endl;
 
-  TstClass* ptr2 = chili::manun::convert::toValue(str);
+  TstClass* ptr2 = manun::convert::toValue(str);
 
   EXPECT_TRUE(ptr1->isSame(*ptr2));
 
@@ -267,10 +267,10 @@ TEST(test_converter_factory, text_TstClass_nullptr_toString)
 {
   TstClass* ptr1 = nullptr;
 
-  auto str = chili::manun::convert::toString(ptr1);
+  auto str = manun::convert::toString(ptr1);
   //  std::cout << str << std::endl;
 
-  TstClass* ptr2 = chili::manun::convert::toValue(str);
+  TstClass* ptr2 = manun::convert::toValue(str);
 
   EXPECT_EQ(nullptr, ptr1);
   EXPECT_EQ(nullptr, ptr2);
@@ -279,5 +279,5 @@ TEST(test_converter_factory, text_TstClass_nullptr_toString)
 // nullptr is not supported
 // TEST(test_converter_factory, text_nullptr_toString)
 //{
-//  chili::manun::convert::toString(nullptr);
+//  manun::convert::toString(nullptr);
 //}

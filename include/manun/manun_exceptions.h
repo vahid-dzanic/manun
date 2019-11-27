@@ -27,7 +27,7 @@
 #include <exception>
 #include <string>
 
-namespace chili::manun {
+namespace manun {
 
 class TypemismatchException : public std::exception
 {
@@ -128,4 +128,4 @@ public:
 private:
   std::string mWhat;
 };
-} // namespace chili::manun
+} // namespace manun

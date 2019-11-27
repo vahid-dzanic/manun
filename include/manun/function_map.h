@@ -28,7 +28,7 @@
 
 #include <stdex/functional_ex.h>
 
-namespace chili::manun {
+namespace manun {
 
 class function_map
 {
@@ -42,9 +42,9 @@ public:
   template<typename _TFunc>
   void add(const _TFunc& func)
   {
-    static_assert(is_function<_TFunc>::value, "2nd argument must be a chili::function<void(...)>");
+    static_assert(stdex::is_function<_TFunc>::value, "2nd argument must be a function<void(...)>");
     static_assert(std::is_same<typename _TFunc::result_type, void>::value,
-                  "Only functions with [void] return type are supported --> chili::function<void(...)>");
+                  "Only functions with [void] return type are supported --> function<void(...)>");
     auto func_name = func.name() + types<typename _TFunc::arguments>();
     auto iter = func_map.find(func_name);
     if (iter != func_map.end())
@@ -56,9 +56,9 @@ public:
   template<typename _TFunc>
   void remove(const _TFunc& func)
   {
-    static_assert(is_function<_TFunc>::value, "2nd argument must be a chili::function<void(...)>");
+    static_assert(stdex::is_function<_TFunc>::value, "2nd argument must be a function<void(...)>");
     static_assert(std::is_same<typename _TFunc::result_type, void>::value,
-                  "Only functions with [void] return type are supported --> chili::function<void(...)>");
+                  "Only functions with [void] return type are supported --> function<void(...)>");
     auto func_name = func.name() + types<typename _TFunc::arguments>();
     remove(func_name);
   }
@@ -128,4 +128,4 @@ private:
 
   std::map<std::string, executer*> func_map;
 };
-} // namespace chili::manun
+} // namespace manun

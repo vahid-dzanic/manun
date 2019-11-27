@@ -31,7 +31,7 @@
 #include <typeindex>
 #include <unordered_map>
 
-namespace chili::manun {
+namespace manun {
 class ITypeIndex
 {
 public:
@@ -58,7 +58,7 @@ public:
   {
     if (objectCreateFunc == nullptr || stringCreateFunc == nullptr)
     {
-      throw chili::manun::NullptrException();
+      throw manun::NullptrException();
     }
   }
   converter_functions(const converter_functions& rhs)
@@ -85,13 +85,13 @@ public:
   {
     if (creator == nullptr)
     {
-      throw chili::manun::NullptrException();
+      throw manun::NullptrException();
     }
     tCreatorMap& localMap = map();
     auto iter = localMap.find(creator->typeIndex());
     if (iter != localMap.end())
     {
-      throw chili::manun::EntryAlreadyExistsException();
+      throw manun::EntryAlreadyExistsException();
     }
     localMap.emplace(std::make_pair(creator->typeIndex(), creator));
     type_name_map::add<value_t>(creator->typeName());
@@ -133,7 +133,7 @@ public:
     {
       val2str = get<value_t>()->value2string(value);
     }
-    return std::string("{" + chili::manun::type_name_map::name<value_t>() + "={" + val2str + "}}");
+    return std::string("{" + manun::type_name_map::name<value_t>() + "={" + val2str + "}}");
   }
 
 private:
@@ -150,12 +150,12 @@ private:
     auto iter = localMap.find(std::type_index(typeid(value_t)));
     if (iter == localMap.end())
     {
-      throw chili::manun::EntryDoesNotExistsException(typeid(value_t).name());
+      throw manun::EntryDoesNotExistsException(typeid(value_t).name());
     }
     auto retVal = dynamic_cast<converter_functions<value_t>*>((*iter).second);
     if (retVal == nullptr)
     {
-      throw chili::manun::NullptrException();
+      throw manun::NullptrException();
     }
     return retVal;
   }
@@ -167,4 +167,4 @@ private:
   converter_factory(const converter_factory&); // not impl.
   void operator=(const converter_factory&); // not impl.
 };
-} // namespace chili::manun
+} // namespace manun

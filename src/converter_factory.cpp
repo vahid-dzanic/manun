@@ -24,7 +24,7 @@
 // License and a copy of the GNU General Public License along with
 // manun. If not, see <http://www.gnu.org/licenses/>.
 
-namespace chili::manun {
+namespace manun {
 
 void converter_factory::removeAll()
 {
@@ -51,4 +51,4 @@ converter_factory::tCreatorMap& converter_factory::map()
   return oF.mObjCreatorFuncMap;
 }
 
-} // namespace chili::manun
+} // namespace manun

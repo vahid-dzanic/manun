@@ -20,11 +20,11 @@ add_library(${PROJECT_NAME} SHARED
   src/manun_exceptions.cpp
   src/type_name_map.cpp
   src/utilities.cpp)
-add_library(chili::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+add_library(vdc::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
-    chili::stdex)
+    vdc::stdex)
 
 set_target_properties(${PROJECT_NAME}
   PROPERTIES
@@ -55,7 +55,7 @@ install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}-config
   ARCHIVE DESTINATION lib
   RUNTIME DESTINATION bin
   PUBLIC_HEADER DESTINATION include/${PROJECT_NAME})
-install(EXPORT ${PROJECT_NAME}-config NAMESPACE chili:: DESTINATION cmake)
+install(EXPORT ${PROJECT_NAME}-config NAMESPACE vdc:: DESTINATION cmake)
 
 enable_testing()
 add_subdirectory(test)
