@@ -17,12 +17,12 @@ jobs:
            sudo cmake CMakeLists.txt
            sudo make install -j${nproc}
            mkdir -p /home/runner/work/stdex
-		   cd /home/runner/work/stdex
-		   git clone https://github.com/vahid-dzanic/stdex.git
-		   cd stdex
-		   sudo cmake CMakeLists.txt
+           cd /home/runner/work/stdex
+           git clone https://github.com/vahid-dzanic/stdex.git
+           cd stdex
+           sudo cmake CMakeLists.txt
            sudo make install -j${nproc}
-		   cd /home/runner/work/manun/manun
+           cd /home/runner/work/manun/manun
     - name: configure
       run: cmake CMakeLists.txt
     - name: make
