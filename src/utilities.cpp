@@ -26,7 +26,7 @@
 
 namespace manun {
 
-std::vector<std::string> extractGroups(const std::string& text, char sgp, char egp)
+std::vector<std::string> extract_groups(const std::string& text, char sgp, char egp)
 {
   bool opened = false;
   std::size_t openPosition = 0;
@@ -73,7 +73,7 @@ std::vector<std::string> extractGroups(const std::string& text, char sgp, char e
   return retVal;
 }
 
-std::size_t positionOfFirstEqualSign(const std::string& text) { return text.find('='); }
+std::size_t position_of_first_equal_sign(const std::string& text) { return text.find('='); }
 
 std::string rm_edge_identifier(const std::string& txt)
 {

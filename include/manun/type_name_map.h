@@ -52,7 +52,7 @@ public:
     {
       return result->second;
     }
-    std::string ret_val(containerName<TYP>());
+    std::string ret_val(container_name<TYP>());
     ret_val.append("<");
     ret_val.append(name<typename TYP::value_type>());
     if (stdex::traits::is_array<TYP>::value)
@@ -72,7 +72,7 @@ public:
     {
       return result->second;
     }
-    std::string ret_val(containerName<TYP>());
+    std::string ret_val(container_name<TYP>());
     ret_val.append("<");
     if (stdex::traits::is_map_container<TYP>::value)
     {
@@ -94,7 +94,7 @@ public:
     {
       return result->second;
     }
-    std::string ret_val(containerName<TYP>() + "<" + name<typename TYP::first_type>() + "," +
+    std::string ret_val(container_name<TYP>() + "<" + name<typename TYP::first_type>() + "," +
                        name<typename TYP::second_type>() + ">");
     add<TYP>(ret_val);
     return ret_val;
@@ -107,7 +107,7 @@ public:
     {
       return result->second;
     }
-    std::string ret_val(containerName<TYP>() + "<" + tuple_types_in_a_row<TYP>() + ">");
+    std::string ret_val(container_name<TYP>() + "<" + tuple_types_in_a_row<TYP>() + ">");
     add<TYP>(ret_val);
     return ret_val;
   }
@@ -135,94 +135,94 @@ private:
 
   type_name_map();
   static tTypeMap& map();
-  void addBuiltInTypeNames();
+  void add_built_in_type_names();
   template<typename TYP, typename std::enable_if<stdex::traits::is_pair<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::pair";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_array<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::array";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_vector<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::vector";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_deque<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::deque";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_list<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::list";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_forward_list<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::forward_list";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_stack<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::stack";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_queue<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::queue";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_priority_queue<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::priority_queue";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_map<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::map";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_set<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::set";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_multimap<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::multimap";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_multiset<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::multiset";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_unordered_map<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::unordered_map";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_unordered_set<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::unordered_set";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_unordered_multimap<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::unordered_multimap";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_unordered_multiset<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::unordered_multiset";
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_tuple<TYP>::value>::type* = nullptr>
-  static std::string containerName()
+  static std::string container_name()
   {
     return "std::tuple";
   }

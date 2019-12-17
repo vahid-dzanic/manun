@@ -93,73 +93,73 @@ typedef ::testing::Types<bool,
 TYPED_TEST_CASE(test_fixture_convert1, builtin_and_std_types);
 TYPED_TEST_CASE(test_fixture_convert2, builtin);
 
-TYPED_TEST(test_fixture_convert1, test_convert_toString)
+TYPED_TEST(test_fixture_convert1, test_convert_to_string)
 {
   TypeParam param;
-  auto str = manun::convert::toString(param);
+  auto str = manun::convert::to_string(param);
   (void)str;
 }
 
-TYPED_TEST(test_fixture_convert1, test_convert_toString_and_toValue)
+TYPED_TEST(test_fixture_convert1, test_convert_to_string_and_to_value)
 {
   TypeParam param;
-  auto str = manun::convert::toString(param);
-  TypeParam paramRet = manun::convert::toValue(str);
+  auto str = manun::convert::to_string(param);
+  TypeParam paramRet = manun::convert::to_value(str);
   (void)paramRet;
 }
 
-TYPED_TEST(test_fixture_convert2, test_convert_builtin_toString)
+TYPED_TEST(test_fixture_convert2, test_convert_builtin_to_string)
 {
   TypeParam param = 17;
-  auto str = manun::convert::toString(param);
+  auto str = manun::convert::to_string(param);
   (void)str;
 }
 
-TYPED_TEST(test_fixture_convert2, test_convert_builtin_toString_and_toValue)
+TYPED_TEST(test_fixture_convert2, test_convert_builtin_to_string_and_to_value)
 {
   TypeParam min = std::numeric_limits<TypeParam>::min();
-  auto str = manun::convert::toString(min);
-  TypeParam ret = manun::convert::toValue(str);
+  auto str = manun::convert::to_string(min);
+  TypeParam ret = manun::convert::to_value(str);
   EXPECT_EQ(min, ret);
 
   min += 1;
-  str = manun::convert::toString(min);
-  ret = manun::convert::toValue(str);
+  str = manun::convert::to_string(min);
+  ret = manun::convert::to_value(str);
   EXPECT_EQ(min, ret);
 
   min -= 2;
-  str = manun::convert::toString(min);
-  ret = manun::convert::toValue(str);
+  str = manun::convert::to_string(min);
+  ret = manun::convert::to_value(str);
   EXPECT_EQ(min, ret);
 
   TypeParam max = std::numeric_limits<TypeParam>::max();
-  str = manun::convert::toString(max);
-  ret = manun::convert::toValue(str);
+  str = manun::convert::to_string(max);
+  ret = manun::convert::to_value(str);
   EXPECT_EQ(max, ret);
 
   max += 1;
-  str = manun::convert::toString(max);
-  ret = manun::convert::toValue(str);
+  str = manun::convert::to_string(max);
+  ret = manun::convert::to_value(str);
   EXPECT_EQ(max, ret);
 
   max -= 2;
-  str = manun::convert::toString(max);
-  ret = manun::convert::toValue(str);
+  str = manun::convert::to_string(max);
+  ret = manun::convert::to_value(str);
   EXPECT_EQ(max, ret);
 
   TypeParam null = 0;
-  str = manun::convert::toString(null);
-  ret = manun::convert::toValue(str);
+  str = manun::convert::to_string(null);
+  ret = manun::convert::to_value(str);
   EXPECT_EQ(null, ret);
 
   null += 1;
-  str = manun::convert::toString(null);
-  ret = manun::convert::toValue(str);
+  str = manun::convert::to_string(null);
+  ret = manun::convert::to_value(str);
   EXPECT_EQ(null, ret);
 
   null -= 2;
-  str = manun::convert::toString(null);
-  ret = manun::convert::toValue(str);
+  str = manun::convert::to_string(null);
+  ret = manun::convert::to_value(str);
   EXPECT_EQ(null, ret);
 
   auto min1 = std::numeric_limits<TypeParam>::min();
@@ -167,25 +167,25 @@ TYPED_TEST(test_fixture_convert2, test_convert_builtin_toString_and_toValue)
   auto delta = std::numeric_limits<TypeParam>::max() / 16.0;
   for (TypeParam i = min1; i < max1; i += delta)
   {
-    auto str = manun::convert::toString(i);
-    TypeParam paramRet = manun::convert::toValue(str);
+    auto str = manun::convert::to_string(i);
+    TypeParam paramRet = manun::convert::to_value(str);
     EXPECT_EQ(i, paramRet);
   }
 }
 
-TEST(test_toStr, text_std_string_toString)
+TEST(test_toStr, text_std_string_to_string)
 {
   std::string param;
-  auto actual = manun::convert::toString(param);
+  auto actual = manun::convert::to_string(param);
   std::string expected("{STR=}");
   EXPECT_EQ(expected, actual);
 }
 
 // long double not supported
-// TEST(test_toStr, text_longdouble_toString)
+// TEST(test_toStr, text_longdouble_to_string)
 //{
 //  long double param = 3.14;
-//  auto actual = manun::convert::toString(param);
+//  auto actual = manun::convert::to_string(param);
 //  std::string expected("{F96=3.14}");
 //  EXPECT_EQ(expected, actual);
 //}
@@ -197,8 +197,8 @@ TEST(test_manun, marshalling_and_unmarshalling_with_vector_of_int32)
   {
     vec[i] = static_cast<std::int32_t>(i);
   }
-  std::string marshalled = manun::convert::toString(vec);
-  std::vector<std::int32_t> unmarshalled = manun::convert::toValue(marshalled);
+  std::string marshalled = manun::convert::to_string(vec);
+  std::vector<std::int32_t> unmarshalled = manun::convert::to_value(marshalled);
 
   for (std::size_t i = 0; i < unmarshalled.size(); ++i)
   {
@@ -220,15 +220,15 @@ public:
   }
   static std::string value2string(const TstClass* tstclass)
   {
-    return std::string(manun::convert::toString(tstclass->member1) + manun::convert::toString(tstclass->member2) +
-                       manun::convert::toString(tstclass->member3));
+    return std::string(manun::convert::to_string(tstclass->member1) + manun::convert::to_string(tstclass->member2) +
+                       manun::convert::to_string(tstclass->member3));
   }
   static TstClass* string2value(const std::vector<std::string>& vec)
   {
     TstClass* retVal = new TstClass();
-    retVal->member1 = manun::convert::toValue(vec[0]);
-    retVal->member2 = manun::convert::toValue(vec[1]);
-    retVal->member3 = manun::convert::toValue(vec[2]);
+    retVal->member1 = manun::convert::to_value(vec[0]);
+    retVal->member2 = manun::convert::to_value(vec[1]);
+    retVal->member3 = manun::convert::to_value(vec[2]);
     return retVal;
   }
 
@@ -244,15 +244,15 @@ private:
   double member3;
 };
 
-TEST(test_converter_factory, text_TstClass_toString)
+TEST(test_converter_factory, text_TstClass_to_string)
 {
   TstClass::register_converter();
   TstClass* ptr1 = new TstClass();
 
-  auto str = manun::convert::toString(ptr1);
+  auto str = manun::convert::to_string(ptr1);
   //  std::cout << str << std::endl;
 
-  TstClass* ptr2 = manun::convert::toValue(str);
+  TstClass* ptr2 = manun::convert::to_value(str);
 
   EXPECT_TRUE(ptr1->isSame(*ptr2));
 
@@ -260,21 +260,21 @@ TEST(test_converter_factory, text_TstClass_toString)
   delete ptr2;
 }
 
-TEST(test_converter_factory, text_TstClass_nullptr_toString)
+TEST(test_converter_factory, text_TstClass_nullptr_to_string)
 {
   TstClass* ptr1 = nullptr;
 
-  auto str = manun::convert::toString(ptr1);
+  auto str = manun::convert::to_string(ptr1);
   //  std::cout << str << std::endl;
 
-  TstClass* ptr2 = manun::convert::toValue(str);
+  TstClass* ptr2 = manun::convert::to_value(str);
 
   EXPECT_EQ(nullptr, ptr1);
   EXPECT_EQ(nullptr, ptr2);
 }
 
 // nullptr is not supported
-// TEST(test_converter_factory, text_nullptr_toString)
+// TEST(test_converter_factory, text_nullptr_to_string)
 //{
-//  manun::convert::toString(nullptr);
+//  manun::convert::to_string(nullptr);
 //}

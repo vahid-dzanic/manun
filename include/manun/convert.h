@@ -32,28 +32,28 @@
 namespace manun::convert {
 
 template<typename _Tp>
-std::string toString(const _Tp& value)
+std::string to_string(const _Tp& value)
 {
   static_assert_by_type<_Tp>();
   return convert_proxy::value2string<_Tp>(value);
 }
 
-class toValue
+class to_value
 {
 public:
-  toValue(const std::string& text)
+  to_value(const std::string& text)
     : text_(text)
   {}
-  toValue(std::string&& text)
+  to_value(std::string&& text)
     : text_(std::move(text))
   {}
-  toValue() = delete; //! No default-constructor
-  toValue(const toValue&) = delete; //! No copy-constructor
-  toValue& operator=(const toValue&) = delete; //! No copy-assignment operator
+  to_value() = delete; //! No default-constructor
+  to_value(const to_value&) = delete; //! No copy-constructor
+  to_value& operator=(const to_value&) = delete; //! No copy-assignment operator
   void* operator new(std::size_t) = delete; //! No create on the heap
   void* operator new[](std::size_t) = delete; //! No create on the heap
-  toValue* operator&() = delete; //! No pointer alias
-  const toValue* operator&() const = delete; //! No const pointer alias
+  to_value* operator&() = delete; //! No pointer alias
+  const to_value* operator&() const = delete; //! No const pointer alias
 
   template<typename _Tp>
   operator _Tp()
@@ -69,7 +69,7 @@ private:
 class func
 {
 public:
-  static std::string toString(const std::string& pretty_function)
+  static std::string to_string(const std::string& pretty_function)
   {
     std::string ret_val("{");
     std::size_t end_pos = pretty_function.find('(');
@@ -90,7 +90,7 @@ public:
   }
 
   template<typename... _Args>
-  static std::string toString(const std::string& pretty_function, _Args... __args)
+  static std::string to_string(const std::string& pretty_function, _Args... __args)
   {
     std::string ret_val("{");
     std::size_t end_pos = pretty_function.find('(');
@@ -144,7 +144,7 @@ private:
   {
     if (with_value)
     {
-      return std::array<std::string, std::tuple_size<_Tpl>::value> {{convert::toString(std::get<_I>(tpl))...}};
+      return std::array<std::string, std::tuple_size<_Tpl>::value> {{convert::to_string(std::get<_I>(tpl))...}};
     }
     else
     {

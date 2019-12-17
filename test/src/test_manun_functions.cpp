@@ -51,8 +51,8 @@ TEST(test_manun_func, test_simple_function_call)
   fmap.add(f1);
 
   std::list<std::uint32_t> data(9, 42);
-  std::cout << manun::convert::func::toString(f1.name(), data);
-  fmap.execute(manun::convert::func::toString(f1.name(), data));
+  std::cout << manun::convert::func::to_string(f1.name(), data);
+  fmap.execute(manun::convert::func::to_string(f1.name(), data));
 }
 
 namespace def {
@@ -62,12 +62,12 @@ void func3(std::uint32_t a) { std::cout << a << std::endl; }
 void func4(std::string a, std::uint32_t b, double c)
 {
   std::cout << a << " " << b << " " << c << std::endl;
-  std::cout << manun::convert::func::toString(__PRETTY_FUNCTION__, a, b, c) << std::endl;
+  std::cout << manun::convert::func::to_string(__PRETTY_FUNCTION__, a, b, c) << std::endl;
 }
 } // namespace def
 
 namespace abc { namespace def {
-void func3(std::uint32_t a) { std::cout << manun::convert::func::toString(__PRETTY_FUNCTION__, a) << std::endl; }
+void func3(std::uint32_t a) { std::cout << manun::convert::func::to_string(__PRETTY_FUNCTION__, a) << std::endl; }
 }} // namespace abc::def
 
 struct ABC
@@ -75,19 +75,19 @@ struct ABC
   void func5(std::string a, std::uint32_t b, double c)
   {
     std::cout << a << " " << b << " " << c << std::endl;
-    std::cout << manun::convert::func::toString(__PRETTY_FUNCTION__, a, b, c) << std::endl;
+    std::cout << manun::convert::func::to_string(__PRETTY_FUNCTION__, a, b, c) << std::endl;
   }
   void func7()
   {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
-    std::cout << manun::convert::func::toString(__PRETTY_FUNCTION__) << std::endl;
+    std::cout << manun::convert::func::to_string(__PRETTY_FUNCTION__) << std::endl;
   }
 };
 
 void func6()
 {
   std::cout << " VOID " << std::endl;
-  std::cout << manun::convert::func::toString(__PRETTY_FUNCTION__) << std::endl;
+  std::cout << manun::convert::func::to_string(__PRETTY_FUNCTION__) << std::endl;
 }
 
 // TEST(test_manun_func, test1)
@@ -136,7 +136,7 @@ void func6()
 //  map.add(stdex_create(func6));
 //  map.add(stdex_create(&ABC::func7, a));
 
-//  map.execute(manun::convert::func::toString(fC.name(), static_cast<std::uint32_t>(3)));
+//  map.execute(manun::convert::func::to_string(fC.name(), static_cast<std::uint32_t>(3)));
 
 ////  map.execute("{def::func3(UI32)({UI32=2A})}");
 ////  map.execute("{def::func4(STR,UI32,F64)({STR=abcdefgahlkasjdf}{UI32=2a}{F64=3fd41b2f769cf0e0})}");
@@ -181,15 +181,15 @@ void func6()
 //  map.execute("{func6()}");
 //  map.execute("{ABC::func7()}");
 
-//  std::string jdjdjd = manun::convert::toString(std::make_tuple(std::string("hallo du"), std::uint32_t(1), double(2)));
+//  std::string jdjdjd = manun::convert::to_string(std::make_tuple(std::string("hallo du"), std::uint32_t(1), double(2)));
 
-//  fD(manun::convert::toValue(jdjdjd));
-//  fD(manun::convert::toValue("{STR=abcdefgahlkasjdf}"),
-//     manun::convert::toValue("{UI32=2a}"),
-//     manun::convert::toValue("{F64=3fd41b2f769cf0e0}"));
-//  fD(manun::convert::toValue("{STR=abcdefgahlkasjdf}"),
-//     manun::convert::toValue("{F64=3fd41b2f769cf0e0}"),
-//     manun::convert::toValue("{UI32=2a}"));
+//  fD(manun::convert::to_value(jdjdjd));
+//  fD(manun::convert::to_value("{STR=abcdefgahlkasjdf}"),
+//     manun::convert::to_value("{UI32=2a}"),
+//     manun::convert::to_value("{F64=3fd41b2f769cf0e0}"));
+//  fD(manun::convert::to_value("{STR=abcdefgahlkasjdf}"),
+//     manun::convert::to_value("{F64=3fd41b2f769cf0e0}"),
+//     manun::convert::to_value("{UI32=2a}"));
 //  std::cout << "----------------------------------------------------------------------------------------------"
 //            << std::endl;
 //}

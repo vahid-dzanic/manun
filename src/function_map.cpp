@@ -45,7 +45,7 @@ void function_map::execute(const std::string& value)
   std::size_t pos1 = raw.find('(');
   if (pos1 == std::string::npos)
   {
-    throw CanNotParseFunctionNameException(value);
+    throw can_not_parse_function_name_exception(value);
   }
   std::size_t pos2 = std::string::npos;
   if (raw.at(pos1 + 1) == ')') // does function has no arguments
@@ -58,14 +58,14 @@ void function_map::execute(const std::string& value)
   }
   if (pos2 == std::string::npos)
   {
-    throw CanNotParseFunctionNameException(value);
+    throw can_not_parse_function_name_exception(value);
   }
   std::string func_name = raw.substr(0, pos2);
-  std::vector<std::string> args = extractGroups(rm_edge_identifier(raw.substr(pos2)));
+  std::vector<std::string> args = extract_groups(rm_edge_identifier(raw.substr(pos2)));
   auto iter = func_map_.find(func_name);
   if (iter == func_map_.end())
   {
-    throw FunctionNotFoundException(func_name);
+    throw function_not_found_exception(func_name);
   }
   (*iter).second->execute(args);
 }
@@ -75,7 +75,7 @@ void function_map::remove(const std::string& name)
   auto iter = func_map_.find(name);
   if (iter == func_map_.end())
   {
-    throw FunctionNotFoundException(name);
+    throw function_not_found_exception(name);
   }
   delete (*iter).second;
   func_map_.erase(iter);

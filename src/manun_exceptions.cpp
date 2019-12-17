@@ -26,59 +26,59 @@
 
 namespace manun {
 
-TypemismatchException::TypemismatchException(const std::string& expectedType, const std::string& parsedType)
+type_mismatch_exception::type_mismatch_exception(const std::string& expectedType, const std::string& parsedType)
   : mWhat("Type mismatch, expected is [" + expectedType + "] parsed from text is [" + parsedType + "].")
 {}
-const char* TypemismatchException::what() const throw() { return mWhat.c_str(); }
+const char* type_mismatch_exception::what() const throw() { return mWhat.c_str(); }
 
-NullptrException::NullptrException()
+nullptr_exception::nullptr_exception()
   : mWhat("Pointer is not initialized.")
 {}
-const char* NullptrException::what() const throw() { return mWhat.c_str(); }
+const char* nullptr_exception::what() const throw() { return mWhat.c_str(); }
 
-EntryAlreadyExistsException::EntryAlreadyExistsException()
+entry_already_exists_exception::entry_already_exists_exception()
   : mWhat("Type entry already exists.")
 {}
-const char* EntryAlreadyExistsException::what() const throw() { return mWhat.c_str(); }
+const char* entry_already_exists_exception::what() const throw() { return mWhat.c_str(); }
 
-EntryDoesNotExistsException::EntryDoesNotExistsException(const std::string& entry)
+entry_does_not_exists_exception::entry_does_not_exists_exception(const std::string& entry)
   : mWhat("Type specific converter functions doesn't exists. typid( of_your_type ).name=[" + entry + "]")
 {}
-const char* EntryDoesNotExistsException::what() const throw() { return mWhat.c_str(); }
+const char* entry_does_not_exists_exception::what() const throw() { return mWhat.c_str(); }
 
-CurlyBracesNotEvenCountException::CurlyBracesNotEvenCountException(const std::string& txt)
+curly_braces_not_even_count_exception::curly_braces_not_even_count_exception(const std::string& txt)
   : mWhat("Missing one curly brace in the current string: " + txt)
 {}
-const char* CurlyBracesNotEvenCountException::what() const throw() { return mWhat.c_str(); }
+const char* curly_braces_not_even_count_exception::what() const throw() { return mWhat.c_str(); }
 
-NoEqualSignAfterTypeNameException::NoEqualSignAfterTypeNameException(const std::string& txt)
+no_equal_sign_after_type_name_exception::no_equal_sign_after_type_name_exception(const std::string& txt)
   : mWhat("Missing equal sign [=] after type name in the current string: " + txt)
 {}
-const char* NoEqualSignAfterTypeNameException::what() const throw() { return mWhat.c_str(); }
+const char* no_equal_sign_after_type_name_exception::what() const throw() { return mWhat.c_str(); }
 
-TypeIsNotAFunctionException::TypeIsNotAFunctionException()
+type_is_not_a_function_exception::type_is_not_a_function_exception()
   : mWhat("Type is not a function")
 {}
-const char* TypeIsNotAFunctionException::what() const throw() { return mWhat.c_str(); }
+const char* type_is_not_a_function_exception::what() const throw() { return mWhat.c_str(); }
 
-ToManyArgumentsException::ToManyArgumentsException(std::size_t current, std::size_t max)
+to_many_arguments_exception::to_many_arguments_exception(std::size_t current, std::size_t max)
   : mWhat("To many arguments: " + std::to_string(current) + " Maximum supported are : " + std::to_string(max))
 {}
-const char* ToManyArgumentsException::what() const throw() { return mWhat.c_str(); }
+const char* to_many_arguments_exception::what() const throw() { return mWhat.c_str(); }
 
-FunctionNotFoundException::FunctionNotFoundException(const std::string& function)
+function_not_found_exception::function_not_found_exception(const std::string& function)
   : mWhat("Function [" + function + "] not found in function container")
 {}
-const char* FunctionNotFoundException::what() const throw() { return mWhat.c_str(); }
+const char* function_not_found_exception::what() const throw() { return mWhat.c_str(); }
 
-CanNotParseFunctionNameException::CanNotParseFunctionNameException(const std::string& text)
+can_not_parse_function_name_exception::can_not_parse_function_name_exception(const std::string& text)
   : mWhat("Can not parse function name: " + text)
 {}
-const char* CanNotParseFunctionNameException::what() const throw() { return mWhat.c_str(); }
+const char* can_not_parse_function_name_exception::what() const throw() { return mWhat.c_str(); }
 
-FunctionAlreadyRegisteredException::FunctionAlreadyRegisteredException(const std::string& function)
+function_already_registered_exception::function_already_registered_exception(const std::string& function)
   : mWhat("Function [" + function + "] already registered")
 {}
-const char* FunctionAlreadyRegisteredException::what() const throw() { return mWhat.c_str(); }
+const char* function_already_registered_exception::what() const throw() { return mWhat.c_str(); }
 
 } // namespace manun

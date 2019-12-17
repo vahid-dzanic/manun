@@ -45,21 +45,21 @@ static constexpr void static_assert_by_type()
   static_assert(not std::is_null_pointer<TYP>::value, "Not supported type: nullptr");
   static_assert(not std::is_array<TYP>::value, "Not supported type: C style arrays");
   static_assert(not stdex::is_std_function<TYP>::value,
-                "Not supported type: std::function use manun::convert::func::toString");
+                "Not supported type: std::function use manun::convert::func::to_string");
   static_assert(not std::is_function<TYP>::value, "Not supported type: function");
   static_assert(not std::is_union<TYP>::value, "Not supported type: union");
   static_assert(not std::is_void<TYP>::value, "Not supported type: void");
 }
 
-std::vector<std::string> extractGroups(const std::string& text, char sgp = SGP, char egp = EGP);
-std::size_t positionOfFirstEqualSign(const std::string& text);
+std::vector<std::string> extract_groups(const std::string& text, char sgp = SGP, char egp = EGP);
+std::size_t position_of_first_equal_sign(const std::string& text);
 template<typename TYP>
-std::string extractContent(const std::string& text)
+std::string extract_content(const std::string& text)
 {
-  std::size_t pos = positionOfFirstEqualSign(text);
+  std::size_t pos = position_of_first_equal_sign(text);
   if (pos == std::string::npos)
   {
-    throw NoEqualSignAfterTypeNameException(text);
+    throw no_equal_sign_after_type_name_exception(text);
   }
   std::string name(type_name_map::name<TYP>());
   std::string parsedName(text.substr(0, pos));
@@ -67,11 +67,11 @@ std::string extractContent(const std::string& text)
   {
     if (stdex::starts_with(text, name))
     {
-      throw NoEqualSignAfterTypeNameException(text);
+      throw no_equal_sign_after_type_name_exception(text);
     }
     else
     {
-      throw TypemismatchException(name, parsedName);
+      throw type_mismatch_exception(name, parsedName);
     }
   }
   return text.substr(name.size() + 1); // + 1 --> removes [=] too

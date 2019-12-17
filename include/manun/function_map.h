@@ -49,7 +49,7 @@ public:
     auto iter = func_map_.find(func_name);
     if (iter != func_map_.end())
     {
-      throw FunctionAlreadyRegisteredException(func_name);
+      throw function_already_registered_exception(func_name);
     }
     func_map_.insert(std::make_pair(func_name, new func_container<_TFunc>(func)));
   }

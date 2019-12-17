@@ -26,7 +26,7 @@
 
 namespace manun {
 
-void converter_factory::removeAll()
+void converter_factory::remove_all()
 {
   auto localmap = map();
   for (auto ptr : localmap)

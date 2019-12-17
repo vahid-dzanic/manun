@@ -37,7 +37,7 @@ public:
   template<typename TYP, typename std::enable_if<stdex::traits::is_string<TYP>::value>::type* = nullptr>
   static TYP string2value(const std::string& txt)
   {
-    auto sub = extractContent<TYP>(txt.substr(1, txt.size() - 2));
+    auto sub = extract_content<TYP>(txt.substr(1, txt.size() - 2));
     return sub.substr(1, sub.size() - 2); // remove STX/ETX
   }
   template<typename TYP, typename std::enable_if<std::is_arithmetic<TYP>::value>::type* = nullptr>
@@ -45,12 +45,12 @@ public:
   {
     static_assert(not std::is_same<long double, TYP>::value, "Not supported type: long double");
     static_assert(not std::is_same<wchar_t, TYP>::value, "Not supported type: wchar_t");
-    return string2arithmetic<TYP>(extractContent<TYP>(txt.substr(1, txt.size() - 2)));
+    return string2arithmetic<TYP>(extract_content<TYP>(txt.substr(1, txt.size() - 2)));
   }
   template<typename TYP, typename std::enable_if<stdex::traits::is_container<TYP>::value>::type* = nullptr>
   static TYP string2value(const std::string& txt)
   {
-    return string2valueInternal<TYP>(extractContent<TYP>(txt.substr(1, txt.size() - 2)));
+    return string2valueInternal<TYP>(extract_content<TYP>(txt.substr(1, txt.size() - 2)));
   }
 
   template<typename TYP>
@@ -212,7 +212,7 @@ private:
   {
     TYP ret_val;
     auto sub = txt.substr(1, txt.size() - 2);
-    std::vector<std::string> vecTxt = extractGroups(sub);
+    std::vector<std::string> vecTxt = extract_groups(sub);
     for (std::size_t i = 0; i < vecTxt.size(); ++i)
     {
       ret_val[i] = string2valueInternal<typename TYP::value_type>(vecTxt[i]);
@@ -226,7 +226,7 @@ private:
   {
     TYP ret_val;
     auto sub = txt.substr(1, txt.size() - 2);
-    std::vector<std::string> vecTxt = extractGroups(sub);
+    std::vector<std::string> vecTxt = extract_groups(sub);
     ret_val.resize(vecTxt.size());
     for (std::size_t i = 0; i < vecTxt.size(); ++i)
     {
@@ -241,7 +241,7 @@ private:
   {
     TYP ret_val;
     auto sub = txt.substr(1, txt.size() - 2);
-    std::vector<std::string> vecTxt = extractGroups(sub);
+    std::vector<std::string> vecTxt = extract_groups(sub);
     for (std::vector<std::string>::const_reverse_iterator i = vecTxt.crbegin(); i != vecTxt.crend(); ++i)
     {
       ret_val.push_front(string2valueInternal<typename TYP::value_type>(*i));
@@ -255,7 +255,7 @@ private:
   {
     TYP ret_val;
     auto sub = txt.substr(1, txt.size() - 2);
-    std::vector<std::string> vecTxt = extractGroups(sub);
+    std::vector<std::string> vecTxt = extract_groups(sub);
     for (std::vector<std::string>::const_reverse_iterator i = vecTxt.crbegin(); i != vecTxt.crend(); ++i)
     {
       ret_val.push(string2valueInternal<typename TYP::value_type>(*i));
@@ -267,7 +267,7 @@ private:
   {
     TYP ret_val;
     auto sub = txt.substr(1, txt.size() - 2);
-    std::vector<std::string> vecTxt = extractGroups(sub);
+    std::vector<std::string> vecTxt = extract_groups(sub);
     for (std::vector<std::string>::const_iterator i = vecTxt.cbegin(); i != vecTxt.cend(); ++i)
     {
       ret_val.push(string2valueInternal<typename TYP::value_type>(*i));
@@ -279,7 +279,7 @@ private:
   {
     TYP ret_val;
     auto sub = txt.substr(1, txt.size() - 2);
-    std::vector<std::string> vecTxt = extractGroups(sub);
+    std::vector<std::string> vecTxt = extract_groups(sub);
     for (std::size_t i = 0; i < vecTxt.size(); ++i)
     {
       ret_val.insert(string2valueInternal<typename TYP::value_type>(vecTxt[i]));
@@ -290,7 +290,7 @@ private:
   static TYP string2valueInternal(const std::string& txt)
   {
     auto sub = txt.substr(1, txt.size() - 2);
-    std::vector<std::string> vecTxt = extractGroups(sub);
+    std::vector<std::string> vecTxt = extract_groups(sub);
     // assert if vecTxt.size() != 2
     return std::make_pair(string2valueInternal<typename TYP::first_type>(vecTxt.at(0)),
                           string2valueInternal<typename TYP::second_type>(vecTxt.at(1)));
@@ -299,7 +299,7 @@ private:
   static TYP string2valueInternal(const std::string& txt)
   {
     auto sub = txt.substr(1, txt.size() - 2);
-    std::vector<std::string> vecTxt = extractGroups(sub);
+    std::vector<std::string> vecTxt = extract_groups(sub);
     return stringvector2tuple<TYP>(vecTxt, std::make_index_sequence<std::tuple_size<TYP>::value>());
   }
   template<typename _Tpl, std::size_t... _I>

@@ -26,7 +26,7 @@
 
 namespace manun {
 
-type_name_map::type_name_map() { addBuiltInTypeNames(); }
+type_name_map::type_name_map() { add_built_in_type_names(); }
 
 type_name_map::tTypeMap& type_name_map::map()
 {
@@ -34,7 +34,7 @@ type_name_map::tTypeMap& type_name_map::map()
   return tn.type_map_;
 }
 
-void type_name_map::addBuiltInTypeNames()
+void type_name_map::add_built_in_type_names()
 {
   type_map_.insert(std::make_pair(std::type_index(typeid(bool)), "B8"));
   type_map_.insert(std::make_pair(std::type_index(typeid(char)), "C8"));

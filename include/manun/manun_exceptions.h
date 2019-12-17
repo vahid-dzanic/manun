@@ -29,100 +29,100 @@
 
 namespace manun {
 
-class TypemismatchException : public std::exception
+class type_mismatch_exception : public std::exception
 {
 public:
-  TypemismatchException(const std::string& expectedType, const std::string& parsedType);
+  type_mismatch_exception(const std::string& expectedType, const std::string& parsedType);
   virtual const char* what() const throw();
 
 private:
   std::string mWhat;
 };
-class NullptrException : public std::exception
+class nullptr_exception : public std::exception
 {
 public:
-  NullptrException();
+  nullptr_exception();
   virtual const char* what() const throw();
 
 private:
   std::string mWhat;
 };
-class EntryAlreadyExistsException : public std::exception
+class entry_already_exists_exception : public std::exception
 {
 public:
-  EntryAlreadyExistsException();
+  entry_already_exists_exception();
   virtual const char* what() const throw();
 
 private:
   std::string mWhat;
 };
-class EntryDoesNotExistsException : public std::exception
+class entry_does_not_exists_exception : public std::exception
 {
 public:
-  EntryDoesNotExistsException(const std::string& entry);
+  entry_does_not_exists_exception(const std::string& entry);
   virtual const char* what() const throw();
 
 private:
   std::string mWhat;
 };
-class CurlyBracesNotEvenCountException : public std::exception
+class curly_braces_not_even_count_exception : public std::exception
 {
 public:
-  CurlyBracesNotEvenCountException(const std::string& txt);
+  curly_braces_not_even_count_exception(const std::string& txt);
   virtual const char* what() const throw();
 
 private:
   std::string mWhat;
 };
-class NoEqualSignAfterTypeNameException : public std::exception
+class no_equal_sign_after_type_name_exception : public std::exception
 {
 public:
-  NoEqualSignAfterTypeNameException(const std::string& txt);
+  no_equal_sign_after_type_name_exception(const std::string& txt);
   virtual const char* what() const throw();
 
 private:
   std::string mWhat;
 };
-class TypeIsNotAFunctionException : public std::exception
+class type_is_not_a_function_exception : public std::exception
 {
 public:
-  TypeIsNotAFunctionException();
+  type_is_not_a_function_exception();
   virtual const char* what() const throw();
 
 private:
   std::string mWhat;
 };
-class ToManyArgumentsException : public std::exception
+class to_many_arguments_exception : public std::exception
 {
 public:
-  ToManyArgumentsException(std::size_t current, std::size_t max);
+  to_many_arguments_exception(std::size_t current, std::size_t max);
   virtual const char* what() const throw();
 
 private:
   std::string mWhat;
 };
-class FunctionNotFoundException : public std::exception
+class function_not_found_exception : public std::exception
 {
 public:
-  FunctionNotFoundException(const std::string& function);
+  function_not_found_exception(const std::string& function);
   virtual const char* what() const throw();
 
 private:
   std::string mWhat;
 };
-class CanNotParseFunctionNameException : public std::exception
+class can_not_parse_function_name_exception : public std::exception
 {
 public:
-  CanNotParseFunctionNameException(const std::string& text);
+  can_not_parse_function_name_exception(const std::string& text);
   virtual const char* what() const throw();
 
 private:
   std::string mWhat;
 };
-class FunctionAlreadyRegisteredException : public std::exception
+class function_already_registered_exception : public std::exception
 {
 public:
-  FunctionAlreadyRegisteredException(const std::string& function);
+  function_already_registered_exception(const std::string& function);
   virtual const char* what() const throw();
 
 private:

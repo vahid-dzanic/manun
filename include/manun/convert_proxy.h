@@ -57,7 +57,7 @@ public:
   template<typename TYP, typename std::enable_if<std::is_enum<TYP>::value>::type* = nullptr>
   static TYP string2value(const std::string& txt)
   {
-    return static_cast<TYP>(std::stoll(extractContent<TYP>(txt.substr(1, txt.size() - 2))));
+    return static_cast<TYP>(std::stoll(extract_content<TYP>(txt.substr(1, txt.size() - 2))));
   }
   template<
     typename TYP,

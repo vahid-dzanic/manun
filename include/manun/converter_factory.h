@@ -36,8 +36,8 @@ class ITypeIndex
 {
 public:
   virtual ~ITypeIndex() = default;
-  virtual std::type_index typeIndex() const = 0;
-  virtual const std::string& typeName() const = 0;
+  virtual std::type_index type_index() const = 0;
+  virtual const std::string& type_name() const = 0;
 };
 
 template<typename value_t>
@@ -58,7 +58,7 @@ public:
   {
     if (object_create_func == nullptr || string_create_func == nullptr)
     {
-      throw manun::NullptrException();
+      throw manun::nullptr_exception();
     }
   }
   converter_functions(const converter_functions& rhs)
@@ -66,8 +66,8 @@ public:
     , m_value2string_func_(rhs.m_value2string_func_)
   {}
 
-  virtual std::type_index typeIndex() const override { return std::type_index(typeid(value_t)); }
-  virtual const std::string& typeName() const override { return type_name_; }
+  virtual std::type_index type_index() const override { return std::type_index(typeid(value_t)); }
+  virtual const std::string& type_name() const override { return type_name_; }
   value_t string2value(const std::vector<std::string>& value) { return m_string2value_func_(value); }
   std::string value2string(const value_t& value) { return m_value2string_func_(value); }
 
@@ -85,16 +85,16 @@ public:
   {
     if (creator == nullptr)
     {
-      throw manun::NullptrException();
+      throw manun::nullptr_exception();
     }
     tCreatorMap& localMap = map();
-    auto iter = localMap.find(creator->typeIndex());
+    auto iter = localMap.find(creator->type_index());
     if (iter != localMap.end())
     {
-      throw manun::EntryAlreadyExistsException();
+      throw manun::entry_already_exists_exception();
     }
-    localMap.emplace(std::make_pair(creator->typeIndex(), creator));
-    type_name_map::add<value_t>(creator->typeName());
+    localMap.emplace(std::make_pair(creator->type_index(), creator));
+    type_name_map::add<value_t>(creator->type_name());
   }
   template<typename value_t>
   static void add(const std::string& name,
@@ -108,18 +108,18 @@ public:
   {
     map().erase(std::type_index(typeid(value_t)));
   }
-  static void removeAll();
+  static void remove_all();
 
   template<typename value_t>
   static value_t string2value(const std::string& value)
   {
-    auto content = extractContent<value_t>(value.substr(1, value.size() - 2));
+    auto content = extract_content<value_t>(value.substr(1, value.size() - 2));
     content = content.substr(1, content.size() - 2);
     if (std::is_pointer<value_t>::value && content == "nullptr")
     {
       return nullptr;
     }
-    return get<value_t>()->string2value(extractGroups(content));
+    return get<value_t>()->string2value(extract_groups(content));
   }
   template<typename value_t>
   static std::string value2string(const value_t& value)
@@ -150,12 +150,12 @@ private:
     auto iter = localMap.find(std::type_index(typeid(value_t)));
     if (iter == localMap.end())
     {
-      throw manun::EntryDoesNotExistsException(typeid(value_t).name());
+      throw manun::entry_does_not_exists_exception(typeid(value_t).name());
     }
     auto ret_val = dynamic_cast<converter_functions<value_t>*>((*iter).second);
     if (ret_val == nullptr)
     {
-      throw manun::NullptrException();
+      throw manun::nullptr_exception();
     }
     return ret_val;
   }
