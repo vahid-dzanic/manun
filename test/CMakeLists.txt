@@ -11,7 +11,8 @@ target_link_libraries(fast_manun
     manun
     gtest
     gmock
-    gtest_main)
+    gtest_main
+    pthread)
 
 target_compile_options(fast_manun
   PRIVATE
