@@ -1,0 +1,31 @@
+name: C++ CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: fetch dependencies
+      run: |
+           sudo apt-get update
+           sudo apt-get install googletest
+           cd /usr/src/googletest
+           sudo cmake CMakeLists.txt
+           sudo make install -j${nproc}
+           mkdir -p /home/runner/work/stdex
+		   cd /home/runner/work/stdex
+		   git clone https://github.com/vahid-dzanic/stdex.git
+		   cd stdex
+		   sudo cmake CMakeLists.txt
+           sudo make install -j${nproc}
+		   cd /home/runner/work/manun/manun
+    - name: configure
+      run: cmake CMakeLists.txt
+    - name: make
+      run: make -j${nproc}
+    - name: test
+      run: ctest -j${nproc}
