@@ -9,23 +9,30 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: fetch dependencies
+    - name: install package dependencies
       run: |
            sudo apt-get update
-           sudo apt-get install --yes googletest
-           cd /usr/src/googletest
-           sudo cmake CMakeLists.txt
+           sudo apt-get install --yes googletest git cmake g++ qt5-default libboost-all-dev
+    - name: build/install googletest dependency
+      run: |
+           sudo mkdir -p /usr/src/googletest/build
+           cd /usr/src/googletest/build
+           sudo cmake ..
            sudo make install -j${nproc}
-           sudo apt-get install --yes qt5-default libboost-all-dev
-           mkdir -p /home/runner/work/stdex
+    - name: build/install stdex dependency
+      run: |
+           mkdir -p /home/runner/work/stdex/
            cd /home/runner/work/stdex
            git clone https://github.com/vahid-dzanic/stdex.git
-           cd stdex
-           sudo cmake CMakeLists.txt
+           mkdir -p stdex/build
+           cd stdex/build
+           cmake ..
            sudo make install -j${nproc}
-           cd /home/runner/work/manun/manun
     - name: configure
-      run: cmake CMakeLists.txt
+      run: |
+           mkdir -p /home/runner/work/manun/manun/build
+           cd /home/runner/work/manun/manun/build
+           cmake ..
     - name: make
       run: make -j${nproc}
     - name: test
