@@ -39,11 +39,11 @@ target_include_directories(${PROJECT_NAME}
   PRIVATE
     src)
 
-target_compile_options(${PROJECT_NAME}
+target_compile_features(${PROJECT_NAME}
   PUBLIC
-    $<$<COMPILE_LANGUAGE:CXX>:-std=c++17>
-#    -Wno-variadic-macros
-#    -Wno-gnu-zero-variadic-macro-arguments
+    cxx_std_17)
+
+target_compile_options(${PROJECT_NAME}
   PRIVATE
     -Werror
     -Wall

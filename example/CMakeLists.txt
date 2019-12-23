@@ -51,8 +51,6 @@ target_include_directories(${PROJECT_NAME}
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>/src)
 
 target_compile_options(${PROJECT_NAME}
-  PUBLIC
-    $<$<COMPILE_LANGUAGE:CXX>:-std=c++17>
   PRIVATE
     $<$<STREQUAL:"${CMAKE_BUILD_TYPE}","Release">:-Werror>
     $<$<STREQUAL:"${CMAKE_BUILD_TYPE}","Release">:-O3>
