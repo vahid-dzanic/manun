@@ -120,7 +120,7 @@ private:
   static std::string types(const _Tpl& arguments)
   {
     std::string ret_val;
-    for (auto val : tuple2array_impl<_Tpl>(arguments, false, std::make_index_sequence<std::tuple_size<_Tpl>::value>()))
+    for (const auto& val : tuple2array_impl<_Tpl>(arguments, false, std::make_index_sequence<std::tuple_size<_Tpl>::value>()))
     {
       ret_val += val;
     }
@@ -131,7 +131,7 @@ private:
   static std::string types_with_value(const _Tpl& arguments)
   {
     std::string ret_val;
-    for (auto val : tuple2array_impl<_Tpl>(arguments, true, std::make_index_sequence<std::tuple_size<_Tpl>::value>()))
+    for (const auto& val : tuple2array_impl<_Tpl>(arguments, true, std::make_index_sequence<std::tuple_size<_Tpl>::value>()))
     {
       ret_val += val;
     }

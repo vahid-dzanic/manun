@@ -34,6 +34,10 @@ namespace manun {
 class std_type_converter
 {
 public:
+  std_type_converter() = delete;
+  std_type_converter(const std_type_converter&) = delete;
+  void operator=(const std_type_converter&) = delete;
+
   template<typename TYP, typename std::enable_if<stdex::traits::is_string<TYP>::value>::type* = nullptr>
   static TYP string2value(const std::string& txt)
   {
@@ -151,13 +155,13 @@ public:
   {
     if (std::is_same<TYP, float>::value)
     {
-      tF32_U32 val;
+      tF32_U32 val{};
       val.U32 = string2arithmetic<std::uint32_t>(txt);
       return val.F32;
     }
     else if (std::is_same<TYP, double>::value)
     {
-      tF64_U64 val;
+      tF64_U64 val{};
       val.U64 = string2arithmetic<std::uint64_t>(txt);
       return val.F64;
     }
@@ -182,13 +186,13 @@ public:
   {
     if (std::is_same<TYP, float>::value)
     {
-      tF32_U32 val;
+      tF32_U32 val{};
       val.F32 = value;
       return arithmetic2string<std::uint32_t>(val.U32);
     }
     else if (std::is_same<TYP, double>::value)
     {
-      tF64_U64 val;
+      tF64_U64 val{};
       val.F64 = value;
       return arithmetic2string<std::uint64_t>(val.U64);
     }
@@ -268,9 +272,9 @@ private:
     TYP ret_val;
     auto sub = txt.substr(1, txt.size() - 2);
     std::vector<std::string> vecTxt = extract_groups(sub);
-    for (std::vector<std::string>::const_iterator i = vecTxt.cbegin(); i != vecTxt.cend(); ++i)
+    for (const auto& val : vecTxt)
     {
-      ret_val.push(string2valueInternal<typename TYP::value_type>(*i));
+      ret_val.push(string2valueInternal<typename TYP::value_type>(val));
     }
     return ret_val;
   }
@@ -462,9 +466,5 @@ private:
   {
     return std::string(SGP + std::to_string(static_cast<std::int64_t>(value)) + EGP);
   }
-
-  std_type_converter() = delete;
-  std_type_converter(const std_type_converter&) = delete;
-  void operator=(const std_type_converter&) = delete;
 };
 } // namespace manun

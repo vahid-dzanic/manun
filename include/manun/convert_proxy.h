@@ -30,6 +30,10 @@ namespace manun {
 class convert_proxy
 {
 public:
+  convert_proxy() = delete;
+  convert_proxy(const convert_proxy&) = delete;
+  void operator=(const convert_proxy&) = delete;
+
   template<typename TYP>
   static std::string value2string(const TYP& value,
                                   typename std::enable_if<stdex::traits::is_std_type<TYP>::value>::type* = nullptr)
@@ -66,10 +70,5 @@ public:
   {
     return converter_factory::string2value<TYP>(txt);
   }
-
-private:
-  convert_proxy() = delete;
-  convert_proxy(const convert_proxy&) = delete;
-  void operator=(const convert_proxy&) = delete;
 };
 } // namespace manun

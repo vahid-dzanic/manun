@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.7 FATAL_ERROR)
 
-project(manun VERSION 1.0.0)
+project(manun VERSION 1.0.0 LANGUAGES CXX)
 
 find_package(stdex REQUIRED)
 
@@ -56,6 +56,8 @@ install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}-config
   RUNTIME DESTINATION bin
   PUBLIC_HEADER DESTINATION include/${PROJECT_NAME})
 install(EXPORT ${PROJECT_NAME}-config NAMESPACE vdc:: DESTINATION cmake)
+
+add_subdirectory(example)
 
 enable_testing()
 add_subdirectory(test)

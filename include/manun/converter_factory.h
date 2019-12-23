@@ -164,7 +164,7 @@ private:
 
   tCreatorMap obj_creator_func_map_;
 
-  converter_factory(const converter_factory&); // not impl.
-  void operator=(const converter_factory&); // not impl.
+  converter_factory(const converter_factory&) = delete;
+  void operator=(const converter_factory&) = delete;
 };
 } // namespace manun

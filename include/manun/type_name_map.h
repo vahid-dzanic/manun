@@ -31,6 +31,9 @@ namespace manun {
 class type_name_map
 {
 public:
+  type_name_map(const type_name_map&) = delete;
+  void operator=(const type_name_map&) = delete;
+
   template<typename TYP>
   static void add(const std::string& name)
   {
@@ -228,8 +231,5 @@ private:
   }
 
   tTypeMap type_map_;
-
-  type_name_map(const type_name_map&) = delete;
-  void operator=(const type_name_map&) = delete;
 };
 } // namespace manun

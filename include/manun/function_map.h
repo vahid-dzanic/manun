@@ -80,7 +80,7 @@ private:
       : func_(func)
     {}
 
-    virtual void execute(const std::vector<std::string>& arguments) override
+    void execute(const std::vector<std::string>& arguments) override
     {
       auto index_seq = std::make_index_sequence<std::tuple_size<_Tpl>::value>();
       invoke(vec2tup(arguments, index_seq), index_seq);
@@ -111,7 +111,7 @@ private:
       return "";
     }
     std::string ret_val("(");
-    for (auto val : tuple2array_impl<_Tpl>(std::make_index_sequence<std::tuple_size<_Tpl>::value>()))
+    for (const auto& val : tuple2array_impl<_Tpl>(std::make_index_sequence<std::tuple_size<_Tpl>::value>()))
     {
       ret_val += val;
     }
