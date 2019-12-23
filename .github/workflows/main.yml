@@ -12,10 +12,11 @@ jobs:
     - name: fetch dependencies
       run: |
            sudo apt-get update
-           sudo apt-get install googletest
+           sudo apt-get install --yes googletest
            cd /usr/src/googletest
            sudo cmake CMakeLists.txt
            sudo make install -j${nproc}
+           sudo apt-get install --yes qt5-default
            mkdir -p /home/runner/work/stdex
            cd /home/runner/work/stdex
            git clone https://github.com/vahid-dzanic/stdex.git
