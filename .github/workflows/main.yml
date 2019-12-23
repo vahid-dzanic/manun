@@ -16,7 +16,7 @@ jobs:
            cd /usr/src/googletest
            sudo cmake CMakeLists.txt
            sudo make install -j${nproc}
-           sudo apt-get install --yes qt5-default
+           sudo apt-get install --yes qt5-default libboost-all-dev
            mkdir -p /home/runner/work/stdex
            cd /home/runner/work/stdex
            git clone https://github.com/vahid-dzanic/stdex.git
