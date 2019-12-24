@@ -9,6 +9,7 @@ set(HEADER_FILES
   include/manun/convert.h
   include/manun/convert_proxy.h
   include/manun/function_map.h
+  include/manun/includes
   include/manun/manun_exceptions.h
   include/manun/std_type_converter.h
   include/manun/type_name_map.h
