@@ -57,7 +57,18 @@ install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}-config
   PUBLIC_HEADER DESTINATION include/${PROJECT_NAME})
 install(EXPORT ${PROJECT_NAME}-config NAMESPACE vdc:: DESTINATION cmake)
 
-add_subdirectory(example)
+# init variables if not defined
+if(NOT DEFINED MANUN_BUILD_WITH_EXAMPLE)
+  set(MANUN_BUILD_WITH_EXAMPLE ON)
+endif()
+if(NOT DEFINED MANUN_BUILD_WITH_TESTS)
+  set(MANUN_BUILD_WITH_TESTS ON)
+endif()
 
-enable_testing()
-add_subdirectory(test)
+if (${MANUN_BUILD_WITH_EXAMPLE})
+  add_subdirectory(example)
+endif()
+if (${MANUN_BUILD_WITH_TESTS})
+  enable_testing()
+  add_subdirectory(test)
+endif()
